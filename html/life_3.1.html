@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <style type="text/css">
+.header {width:100%; height:60px; background-color:#717dc9; padding:20px; text-align:center}
+.left_col {width:10px; height:460px; background-color:#dddddd; padding:15px; vertical-align:top}
+.center_col {width:500px; background-color:#ffffff; padding:15px; vertical-align:top}
+.right_col {width:120px; background-color:#dddddd; padding:15px; vertical-align:top}
+.footer {width:100%; padding:10px 0 10px 20px; background-color:#717dc9; font-size:13px}
+</style>
+  </head>
+  <body onload="canvasLifeGame();">
+    <h1>
+     Игра "Жизнь" (AndrewPJ)
+    </h1>
+   
+<TABLE border="0" cellpadding="4" cellpadding="4">
+<TR>
+<TD class="left_col"><canvas id="myCanvas" width="1000" height="500"></canvas><TD>
+<TD class="right_col"><canvas id="myCanvas2" width="400" height="500"></canvas><TD>
+<TR>
+<TH><SELECT id="mySelect" name="Фигуры"></SELECT><TH>
+</TR>
+<TR>
+<TH><input name="submit" value="ОЧИСТИТЬ" type="submit" onclick = "canvasLifeGame();"></TH>
+</TR>
+<TR>
+<TH><input name="submit" value="1 итерация" type="submit" onclick = "step_1();"></TH>
+</TR>
+<TR>
+<TH>-----Замедление-----</TH>
+</TR>
+<TR>
+<TH><canvas id="myCanvas3" width="250" height="30"></canvas></TH>
+</TR>
+<TR>
+<TH>------------------</TH>
+</TR>
+<TH>-----Размер поля-----</TH>
+</TR>
+<TR>
+<TH><canvas id="myCanvas4" width="300" height="30"></canvas></TH>
+</TR>
+<TR>
+<TH>------------------</TH>
+</TR>
+<TR>
+<TH>Колличество живых <TEXTAREA rows=1 cols=10 id="f1"></TEXTAREA></TH>
+</TR>
+<TR>
+<TH>Итерации <TEXTAREA rows=1 cols=10 id="f2"></TEXTAREA></TH>
+</TR>
+<TR>
+<TH><TEXTAREA rows=1 cols=10 id="f_on"></TEXTAREA></TH>
+</TR>
+
+</TABLE>
+ <script type="text/javascript">
+ var field_temp;
+//----------------фигуры-------------
+//----------------фигуры-------------
+//----------------фигуры-------------
+//-----------------------------------
+var fg=new Array();
+//-----------------------------------
+fg[0]=new Array("Точка",1,1);
+fg[1]=new Array("Глайдер",3,0,1,0,0,0,1,1,1,1);
+fg[2]=new Array("Авианосец",4,1,1,0,0,1,0,0,1,0,0,1,1,0,0,0,0);
+fg[3]=new Array("Ладья",3,0,1,0,1,0,1,0,1,0);
+fg[4]=new Array("----",5,1,1,1,0,1,1,0,0,0,0,0,0,0,1,1,0,1,1,0,1,1,0,1,0,1);
+fg[5]=new Array("Бомба",15,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0);
+//-----------------------------------
+//-----------------------------------
+//-----------------------------------
+//-----------------------------------
+//-----------------------------------
+ var canvas = document.getElementById("myCanvas");
+ var canvas2=document.getElementById("myCanvas2");
+ var canvas3=document.getElementById("myCanvas3");
+ var canvas4=document.getElementById("myCanvas4");
+ var ctx = canvas.getContext("2d");
+ var size_x=1000;
+ var size_y=500;
+ var size_x2=400;
+ var size_y2=500;
+ var dx=10;
+ var dy=10;
+ var p_x=0;
+ var p_y=0;
+ var x_m=0;
+ var y_m=0;
+ var l1=3;
+ var l2=2;
+ var x_mouse=0;
+ var y_mouse=0;
+ var time=10;
+ var l=3; 
+ var id=0;
+ var check=0;
+ var check2=0;
+ var check3=0;
+ var fps_c=0;
+ var del_size=0;
+ var life_on=0;
+ f_on.value="выключено";
+ var temp_size=new Array();;
+ var sl=new slider(canvas3);
+ var sl2=new slider(canvas4);
+ function slider(canv)
+ {
+ this.ctx = canv.getContext("2d");
+ this.x_old=0;
+ this.y_old=11;
+ this.dx=0;
+ this.x=4;
+ this.y=11;
+	this.change_x=function(x)
+	{
+	this.x_old=this.x;
+	this.x=x;
+	this.dx=this.x-this.x_old;
+	}
+ this.paint=function()
+	{
+			this.ctx.clearRect(0,0, canv.width,canv.height);
+			this.ctx.fillStyle = "black";
+			this.ctx.beginPath();
+			this.ctx.fillRect(8,this.y+6, canv.width-10,2);
+			this.ctx.fillRect(this.x, this.y, 5,15);
+			this.ctx.text
+			this.ctx.closePath();
+			this.ctx.fill();
+	}	
+ }
+ //------обработчки клавы
+window.onkeypress = function(e) 
+	{
+    var evt = e || event; 
+	
+	//alert(evt.keyCode);
+    switch(evt.keyCode)
+		{
+	//	case 114:
+		/*case 1082:
+		{
+		
+		var n=temp_size.pop();
+			for(var i=0;i<n;i++)
+			{
+			field_list.remove(field_list.last);
+			}
+		
+		break;
+		}*/
+		
+		case 1103:
+		case 122:
+		{
+		sl2.change_x(sl2.x+1);
+		sl2.paint();
+		dx++;
+		dy++;
+		break;
+		}
+		case 1071:
+		case 90:
+		{
+		if(dx>2) { 
+		dx--;
+		dy--;
+		sl2.change_x(sl2.x-1);
+		sl2.paint();
+		}
+		break;
+		}
+                case 119:
+		case 38:
+			{
+			y_m-=4;
+			break;
+			}
+                case 115:
+		case 40:
+			{
+			y_m+=4;
+			break;
+			}
+                case 97:
+		case 37:
+			{
+			
+			x_m-=4;
+			break;
+			}
+                case 100:
+		case 39:
+			{
+			x_m+=4;
+			break;
+			}
+			case 32:
+			{
+			del_size=0;
+			check=!check;
+			check2=!check2;
+			break;
+			}
+		case 1070:
+		case 62:
+			{
+			if(l<9)	{ l++;prePaint();}
+			break;
+			}
+		case 1041:
+		case 60:
+			{
+			if(l>0) {l--;prePaint();}
+			break;
+			}
+		}
+		//paint();
+		
+    }
+//------обработчки клавы
+//------обработчик мыши
+//слайдер скорости
+ //-----------------
+ var cnv3_c=0;
+ canvas3.onmousedown = function(e)
+ {
+ cnv3_c=1;
+ }
+ canvas3.onmousemove=function(e)
+ {
+ if(cnv3_c){
+ var evt = e || event;
+	x=evt.offsetX;
+	y=evt.offsetY;
+	if((x<canvas3.width-5)&&(x>4)){
+	sl.change_x(x);
+	sl.paint();
+	}
+	time=time+sl.dx*2;
+	}
+ }
+ //------------------
+ 
+ //слайдер зума
+ //-----------------
+ var cnv4_c=0;
+ canvas4.onmousedown = function(e)
+ {
+ cnv4_c=1;
+ }
+ window.onmouseup = function(e)
+ {
+ if(cnv4_c){
+ cnv4_c=0;
+ }
+ if(cnv3_c){
+ cnv3_c=0;
+ clearInterval(id);
+ id = setInterval(lifeauto,time);
+ }
+ }
+ canvas4.onmousemove=function(e)
+ {
+ if(cnv4_c)
+	{
+	var evt = e || event;
+	x=evt.offsetX;
+	y=evt.offsetY;	
+				if((dx>2)&&(dx<400)) 
+				{
+				sl2.change_x(x);
+				dx+=sl2.dx;
+				dy+=sl2.dx;
+				}
+	sl2.paint();
+	}
+ }
+ //------------------
+
+    canvas.onmousedown = function(e)
+    {
+	
+	var evt = e || event;
+	x=evt.offsetX/dx;
+	y=evt.offsetY/dy;
+	x=parseInt(x.toFixed())-p_x;
+	y=parseInt(y.toFixed())-p_y;
+	x=x+x_m;
+	y=y+y_m;
+	
+	
+	var temp=field_temp.root;
+	while(temp!=null)
+	{
+    if(field_xy[temp.x+x])
+	{
+	if(field_xy[temp.x+x][temp.y+y])
+		{
+		delete field_xy[temp.x+x][temp.y+y]; 
+		field_list.remove_xy(temp.x+x,temp.y+y);
+		
+		}
+	else{
+		
+		field_list.insert(temp.x+x,temp.y+y);
+		field_xy[temp.x+x][temp.y+y]=1;
+		}
+	}
+	else
+	{
+	
+	field_list.insert(temp.x+x,temp.y+y);
+	field_xy[temp.x+x]=new Array();
+	field_xy[temp.x+x][temp.y+y]=1;
+    }
+	temp_size.push(field_temp.size);
+	del_size++;
+	temp=temp.child;
+	}
+    //paint();
+	}
+	
+    canvas.onmousemove=function(e){
+	var evt = e || event;
+	x=evt.offsetX/dx;
+	y=evt.offsetY/dy;
+	x=parseInt(x.toFixed())-p_x;
+	y=parseInt(y.toFixed())-p_y;
+	x_mouse=x;
+	y_mouse=y;
+	} 
+function mouse_paint()
+{
+	x=x_mouse;
+	y=y_mouse;
+	ctx.fillStyle = "black";
+    ctx.rect(0, 0, size_x, size_y);
+	ctx.translate(0,0);
+    ctx.fill();
+	//----------------------
+	var s="#"+l+"00000";
+	ctx.fillStyle = s;
+	for(var i=0;i<size_x;i+=dx)
+	{
+	ctx.fillRect(i,0,1,size_x);
+	}
+	for(var i=0;i<size_y;i+=dy)
+	{
+	ctx.fillRect(0,i,size_x,1);
+	}
+	//----------------------
+	var temp=new dot();
+	temp=field_list.root;
+	ctx.fillStyle = "green";
+	while(temp!=null)
+	{
+	if(((temp.x)>=x_m)&&((temp.y)>=y_m)&&(temp.x<=(size_x+x_m))&&(temp.y<=(size_y+y_m))){
+			ctx.beginPath();
+			ctx.fillRect((temp.x-x_m)*dx,(temp.y-y_m)*dy, dx-1, dy-1);
+			ctx.closePath();
+			ctx.fill();
+		}
+		
+			
+			temp=temp.child;
+	}
+	if(field_temp.size>0)
+	{
+		
+		//----------------------
+	
+		//----------------------
+		var temp=new dot();
+		temp=field_temp.root;
+		ctx.fillStyle = "green";
+		while(temp!=null)
+		{
+			ctx.beginPath();
+			ctx.fillRect((temp.x+x)*dx,(temp.y+y)*dy, dx-1, dy-1);
+			ctx.closePath();
+			ctx.fill();
+			temp=temp.child;
+		}
+	}
+	
+}   
+//------обработчик мыши
+function dot()
+ {
+ this.x=0;
+ this.y=0;
+ this.child=null;
+ this.parent=null;
+ this.sosed=0;
+ this.s=new Array();
+ }
+ function list()
+ {
+ this.root=null;
+ this.last=null;
+ this.size=0;
+ this.insert=function(c_x,c_y)
+	{
+	if(((c_x)>=x_m)&&((c_y)>=y_m)&&(c_x<=(size_x/dx+x_m))&&(c_y<=(size_y/dy+y_m))) life_on=1;
+	
+	
+	if(this.root==null)
+		{
+		this.root=new dot();
+		this.root.x=c_x;
+		this.root.y=c_y;
+		this.last=this.root;
+		this.size++;
+		}
+	else
+		{
+		var temp=new dot();
+		temp.x=c_x;
+		temp.y=c_y;
+		this.last.child=temp;
+		temp.parent=this.last;
+		this.last=temp;
+		this.size++;
+		}
+	}
+	this.remove_xy=function(x,y)
+	{
+	var temp=this.root;
+	while((temp.x!=x)||(temp.y!=y))
+	{
+	temp=temp.child;
+	}
+	this.remove(temp);
+	}
+ this.remove=function(temp)
+	{
+	
+	if((this.size==1)&&(temp==this.last))
+		{
+		this.root=null;
+		this.last=null;
+		this.size=0;
+		return;
+		}
+	if((temp.child) && (temp.parent))
+		{
+		var t=new dot();
+		t=temp.parent;
+		t.child=temp.child;
+		temp.child.parent=t;
+		delete temp;
+		this.size--;
+		}
+	else
+		{
+		if(temp.child)
+			{
+			temp.child.parent=null;
+			this.root=temp.child;
+			delete temp;
+			this.size--;
+			}
+		else
+			{
+			if(temp.parent)
+				{
+				temp.parent.child=null;
+				this.last=temp.parent;
+				delete temp;
+				this.size--;
+				}
+			else
+				{
+				delete temp;
+				root=null;
+				last=null;
+				}
+			}
+		}
+	}
+ }
+ var list_d;
+ 
+ 
+ function sosed()
+ {
+ list_d=new list();
+ var temp=new dot();
+ temp=field_list.root;
+ while(temp!=null)
+ {
+ temp.sosed=0;
+ if((field_xy[temp.x-1])&&(field_xy[temp.x-1][temp.y-1])) {temp.sosed++;}
+ else {
+	list_d.insert(temp.x-1,temp.y-1);
+	}
+ if((field_xy[temp.x])&&(field_xy[temp.x][temp.y-1])) {temp.sosed++;}
+ else {
+	list_d.insert(temp.x,temp.y-1);
+	}
+ if((field_xy[temp.x+1])&&(field_xy[temp.x+1][temp.y-1])) {temp.sosed++;}
+ else {
+	list_d.insert(temp.x+1,temp.y-1);
+	}
+ if((field_xy[temp.x-1])&&(field_xy[temp.x-1][temp.y])) {temp.sosed++;}
+ else {
+	list_d.insert(temp.x-1,temp.y);
+	}
+ if((field_xy[temp.x+1])&&(field_xy[temp.x+1][temp.y])) {temp.sosed++;}
+ else {
+	list_d.insert(temp.x+1,temp.y);
+	}
+ if((field_xy[temp.x-1])&&(field_xy[temp.x-1][temp.y+1])) {temp.sosed++;}
+ else {
+	list_d.insert(temp.x-1,temp.y+1);
+	}
+ if((field_xy[temp.x])&&(field_xy[temp.x][temp.y+1])) {temp.sosed++;}
+ else {
+	list_d.insert(temp.x,temp.y+1);
+	}
+ if((field_xy[temp.x+1])&&(field_xy[temp.x+1][temp.y+1])) {temp.sosed++;}
+ else {
+	list_d.insert(temp.x+1,temp.y+1);
+	}
+ temp=temp.child;
+ }
+ temp=list_d.root;
+ while(temp!=null)
+	{
+	temp.sosed=0;
+	if((field_xy[temp.x-1])&&(field_xy[temp.x-1][temp.y-1])) {temp.sosed++;}
+	if((field_xy[temp.x])&&(field_xy[temp.x][temp.y-1])) {temp.sosed++;}
+	if((field_xy[temp.x+1])&&(field_xy[temp.x+1][temp.y-1])) {temp.sosed++;}
+	if((field_xy[temp.x-1])&&(field_xy[temp.x-1][temp.y])) {temp.sosed++;}
+	if((field_xy[temp.x+1])&&(field_xy[temp.x+1][temp.y])) {temp.sosed++;}
+	if((field_xy[temp.x-1])&&(field_xy[temp.x-1][temp.y+1])) {temp.sosed++;}
+	if((field_xy[temp.x])&&(field_xy[temp.x][temp.y+1])) {temp.sosed++;}
+	if((field_xy[temp.x+1])&&(field_xy[temp.x+1][temp.y+1])) {temp.sosed++;}
+	temp=temp.child;
+	}
+ }
+ 
+ 
+ var field_list; 
+ var field_xy;
+ var ctx;
+ var ctx2;
+ 
+ var objSel = document.getElementById("mySelect");
+ function fps_set()
+ {
+ //fps.value=fps_c;
+ fps_c=0;
+ }
+function canvasLifeGame()
+	{
+	
+	sl.paint();
+	sl2.x=7;
+	sl2.paint();
+//-----------добавляем в список---
+	if(check3==0){
+	for(var i=0;i<fg.length;i++)
+	{
+	objSel.options[objSel.options.length] = new Option(fg[i][0], i+"");
+	}
+		check3=!check3;
+	}
+	//------------------
+	ctx2 = canvas2.getContext("2d");
+    ctx2.fillStyle = "black";
+    ctx2.rect(0, 0, size_x2, size_y2);
+    ctx2.fill();
+	//----------------------
+	var s="#"+l+"00000";
+	ctx2.fillStyle = s;
+	for(var i=0;i<size_y2;i+=10)
+	{
+	ctx2.fillRect(i,0,1,size_x2);
+	}
+	for(var i=0;i<size_y2;i+=10)
+	{
+	ctx2.fillRect(0,i,size_y2,1);
+	}
+		f2.value=0;
+		field_xy=new Array();
+		field_list=new list(); 
+		field_temp=new list();
+		temp=field_list.root;
+		paint();
+		//check=1;
+		if(id){}
+		else{
+		id = setInterval(lifeauto,time);
+		id2=setInterval(fps_set,1000);
+		id3=setInterval(paint,10);
+		}
+	}
+	function step_1()
+	{
+	check=1;
+	lifeauto();
+	check=0;
+	}
+//--------АВТОМАТ------
+function lifeauto()
+{ 	
+life_on=0;
+cn=0;
+	if(objSel.selectedIndex>-1)
+	{
+	var temp=field_temp.root;
+	while(temp!=null)
+	{
+	field_temp.remove(temp);
+	temp=temp.child;
+	}
+	num=objSel.selectedIndex;
+	size=fg[num][1];
+	beg=0;
+	for(var i=0;i<size;i++)
+		{
+		for(var j=0;j<size;j++)
+			{
+			if((cn==0)&&(fg[num][2+j+size*i]!=1)) {}
+			else {
+			cn=1;
+			if(fg[num][2+j+size*i]==1)
+			field_temp.insert(beg+j,beg+i);
+			}
+			
+			}
+			
+		}
+		//paint();
+	}
+	if(check){
+	sosed();
+	f2.value++;
+	var temp=new dot();
+	var stack=new Array();
+	temp=field_list.root;
+	var n=field_list.size;
+	f1.value=n+" клеток";
+		while(temp!=null)
+		{
+		switch(temp.sosed)
+			{
+				case l1:
+				case l2:
+				{
+				break;
+				}
+				default:
+					{
+					delete field_xy[temp.x][temp.y];
+					field_list.remove(temp);
+					break;
+					}
+			}
+		temp=temp.child;	
+		}
+
+		n=list_d.size;
+		temp=list_d.root;
+		while(temp!=null)
+		{
+		switch(temp.sosed)
+		{
+		case 3:
+			{
+			if(field_xy[temp.x])
+						{
+							if(field_xy[temp.x][temp.y]){}
+							else{
+								field_list.insert(temp.x,temp.y);
+								field_xy[temp.x][temp.y]=1;
+								}
+						}
+					else
+						{
+						field_list.insert(temp.x,temp.y);
+						field_xy[temp.x]=new Array();
+						field_xy[temp.x][temp.y]=1;
+						}
+						break;
+			}
+		default:
+			{
+			break;
+			}
+		}
+		temp=temp.child;
+		}
+	
+}
+//Fpaint();	
+}
+//---------------------	
+//--------PAINT--------
+function paint()
+{	
+	fps_c++;
+    ctx.fillStyle = "black";
+    ctx.rect(0, 0, size_x, size_y);
+	//ctx.translate(0,0);
+    ctx.fill();
+	//----------------------
+	var s="#"+l+"00000";
+	ctx.fillStyle = s;
+	for(var i=0;i<size_x;i+=dx)
+	{
+	ctx.fillRect(i,0,1,size_x);
+	}
+	for(var i=0;i<size_y;i+=dy)
+	{
+	ctx.fillRect(0,i,size_x,1);
+	}
+	//----------------------
+	var temp=new dot();
+	temp=field_list.root;
+	ctx.fillStyle = "green";
+	var n_dot=(size_x*size_y)/(dx*dy);
+	var k_dot=0;
+	if((life_on==1)||(!check)){
+	f_on.value="включено";
+	while((temp!=null)&&(k_dot<=n_dot))
+	{
+	if(((temp.x)>=x_m)&&((temp.y)>=y_m)&&(temp.x<=(size_x/dx+x_m))&&(temp.y<=(size_y/dy+y_m))){
+			ctx.beginPath();
+			ctx.fillRect((temp.x-x_m)*dx,(temp.y-y_m)*dy, dx-1, dy-1);
+			ctx.closePath();
+			ctx.fill();
+			k_dot++;
+		}
+		
+			
+			temp=temp.child;
+	}
+	
+	}
+	else
+	{
+	f_on.value="выключено";
+	}
+	if(field_temp.size>0)
+	{
+		ctx2 = canvas2.getContext("2d");
+		ctx2.fillStyle = "black";
+		ctx2.rect(0, 0, size_x2, size_y2);
+		ctx2.fill();
+		//----------------------
+		var s="#"+l+"00000";
+		ctx2.fillStyle = s;
+		for(var i=0;i<size_y2;i+=10)
+			{
+			ctx2.fillRect(i,0,1,size_y2);
+			}
+		for(var i=0;i<size_y2;i+=10)
+			{
+			ctx2.fillRect(0,i,size_x2,1);
+			}
+		//----------------------
+		var temp=new dot();
+		temp=field_temp.root;
+		ctx.fillStyle ="lightgreen" ;
+		ctx2.fillStyle ="green" ;
+		while(temp!=null)
+		{
+	
+			ctx.beginPath();
+			ctx.fillRect((temp.x+x_mouse)*dx,(temp.y+y_mouse)*dy, dx-1, dy-1);
+			ctx.closePath();
+			ctx.fill();
+			ctx2.beginPath();
+			ctx2.fillRect((temp.x)*10,(temp.y)*10, 9, 9);
+			ctx2.closePath();
+			ctx2.fill();
+			temp=temp.child;
+		}
+	}
+	
+
+}
+//canvasLifeGame();
+//---------------------	
+    </script>
+  </body>
+
+</html>
+

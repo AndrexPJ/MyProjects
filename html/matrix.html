@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body onload="start();">
+  <canvas id="myCanvas_1" width="300" height="300"></canvas>
+  <canvas id="myCanvas_2" width="300" height="300"></canvas>
+  <table>
+  <TR><TH>To change size click "upload"<TH></TR>
+<TR>
+<TH><SELECT id="mySelect" name="Размер"></SELECT><TH>
+</TR>
+ <TR>
+<TH><input name="submit" value="Upload" type="submit" onclick = "upload();"></TH>
+<TH><input name="submit" value="Run" type="submit" onclick = "math();"></TH>
+</TR>
+
+  </table>
+ <script type="text/javascript">
+var canvas_1= document.getElementById("myCanvas_1");
+var ctx_1 = canvas_1.getContext("2d");
+var canvas_2= document.getElementById("myCanvas_2");
+var ctx_2 = canvas_2.getContext("2d");
+var objSel = document.getElementById("mySelect");
+//-------size of matrix
+var m=4;
+var n=4;
+var old_x1=0;
+var old_y1=0;
+var old_x2=0;
+var old_y2=0;
+var sizes=10;
+var matrix_1=new Array();
+var matrix_2=new Array();
+var ch_m1=new Array();
+var ch_m2=new Array();
+var dx=50;
+var dy=50;
+var cl_x=3;
+var cl_y=3;
+var key=0;
+var check=0;
+var old_str="";
+var old_n;
+function upload()
+{
+n=objSel.selectedIndex+1;
+m=n;
+start();
+}
+function start()
+{
+canvas_1.width=n*dx+1;
+canvas_1.height=m*dy+1;
+canvas_2.width=n*dx+1;
+canvas_2.height=m*dy+1;
+size_x1=canvas_1.width;
+size_y1=canvas_1.height;	
+size_x2=canvas_2.width;
+size_y2=canvas_2.height;
+
+if(check==0){
+for(var i=1;i<sizes;i++)
+	{
+	objSel.options[objSel.options.length] = new Option(i+"x"+i, i+"");
+	}
+objSel.selectedIndex=n-1;
+check=1;
+}
+for(var i=0;i<n;i++)
+{
+matrix_1[i]=new Array();
+matrix_2[i]=new Array();
+ch_m1[i]=new Array();
+ch_m2[i]=new Array();
+	for(var j=0;j<m;j++)
+	{
+	matrix_1[i][j]=0;
+	matrix_2[i][j]=0;
+	}
+	for(var j=0;j<10;j++)
+	{
+	ch_m1[i][j]=0;
+	ch_m2[i][j]=0;
+	}
+}
+
+paint();
+}
+
+function ctx1_prnt(x,y)
+{
+	ctx_1.fillStyle = "cyan";
+	if(x<n && y<m && x>=0 && y>=0){
+	ctx_1.clearRect((old_x1)*dx+cl_x, (old_y1)*dy+cl_y, dx-cl_x, dy-cl_y);
+	old_x1=x;
+	old_y1=y;
+	ctx_1.fillRect((old_x1)*dx+cl_x, (old_y1)*dy+cl_y, dx-cl_x-2, dy-cl_y-2);
+	}
+	paint2();
+}
+function ctx2_prnt(x,y)
+{
+ctx_2.fillStyle = "cyan";
+	if(x<n && y<m && x>=0 && y>=0 ){
+	ctx_2.clearRect((old_x2)*dx+cl_x, (old_y2)*dy+cl_y, dx-cl_x, dy-cl_y);
+	old_x2=x;
+	old_y2=y;
+	ctx_2.fillRect((old_x2)*dx+cl_x, (old_y2)*dy+cl_y, dx-cl_x-2, dy-cl_y-2);
+	}
+	paint2();
+}
+//---------------------------
+ canvas_1.onmousedown = function(e)
+    {
+	if(key==1) key=0;
+	var evt = e || event; 
+	x=parseInt(""+evt.clientX/dx);
+	y=parseInt(""+evt.clientY/dy);
+	ctx_2.clearRect((old_x2)*dx+cl_x, (old_y2)*dy+cl_y, dx-cl_x, dy-cl_y);
+	ctx1_prnt(x,y);
+	}
+ canvas_2.onmousedown = function(e)
+    {
+	if(key==0) key=1;
+	var evt = e || event; 
+	x=parseInt(""+evt.clientX/dx);
+	y=parseInt(""+evt.clientY/dy);
+	x-=n;
+	ctx_1.clearRect((old_x1)*dx+cl_x, (old_y1)*dy+cl_y, dx-cl_x, dy-cl_y);
+	ctx2_prnt(x,y);
+	}	
+//---------------------------	
+
+window.onkeypress = function(e) 
+	{
+    var evt = e || event;
+    switch(evt.keyCode)
+		{
+		case 13:
+		{
+		if(key==0)
+		{
+		ctx1_prnt(0,old_y1+1);
+		}
+		else
+		{
+		ctx2_prnt(0,old_y2+1);
+		}
+		break;
+		}
+		case 32:
+		{
+		if(key==0)
+		{
+		key=1;
+		ctx_1.clearRect((old_x1)*dx+cl_x, (old_y1)*dy+cl_y, dx-cl_x, dy-cl_y);
+		ctx2_prnt(0,0);
+		}
+		else
+		{
+		key=0;
+		ctx_2.clearRect((old_x2)*dx+cl_x, (old_y2)*dy+cl_y, dx-cl_x, dy-cl_y);
+		ctx1_prnt(0,0);
+		}
+		}
+		case 38:
+			{
+			if(key==0) ctx1_prnt(old_x1,old_y1-1);
+			else ctx2_prnt(old_x2,old_y2-1);
+			break;
+			}
+		case 40:
+			{
+			if(key==0) ctx1_prnt(old_x1,old_y1+1);
+			else ctx2_prnt(old_x2,old_y2+1);
+			break;
+			}
+		case 37:
+			{
+			
+			if(key==0) ctx1_prnt(old_x1-1,old_y1);
+			else ctx2_prnt(old_x2-1,old_y2);
+			break;
+			}
+		case 39:
+			{
+			if(key==0) ctx1_prnt(old_x1+1,old_y1);
+			else ctx2_prnt(old_x2+1,old_y2);
+			break;
+			}
+		case 48:	
+		case 49:
+		case 50:
+		case 51:
+		case 52:
+		case 53:
+		case 54:
+		case 55:
+		case 56:
+		case 57:
+		{
+		var n=evt.keyCode-48;
+		if(key==0){
+		matrix_1[old_y1][old_x1]=n;
+		ctx1_prnt(old_x1,old_y1);
+		}
+		else {
+		matrix_2[old_y2][old_x2]=n;
+		ctx2_prnt(old_x2,old_y2);
+		}
+		break;
+		}
+	}
+		
+    }
+
+
+
+
+function paint()
+{
+ctx_1.fillStyle = "black";
+ctx_1.clearRect(0, 0, size_x1, size_y1);
+ctx_2.fillStyle = "black";
+ctx_2.clearRect(0, 0, size_x2, size_y2);
+
+	for(var i=0;i<dx*(n+1);i+=dx)
+	{
+	ctx_1.fillRect(i,0,1,dx*(m));
+	}
+	for(var i=0;i<dy*(m+1);i+=dy)
+	{
+	ctx_1.fillRect(0,i,dy*(n),1);
+	}
+	
+	for(var i=0;i<dx*(n+1);i+=dx)
+	{
+	ctx_2.fillRect(i,0,1,dx*(m));
+	}
+	for(var i=0;i<dy*(m+1);i+=dy)
+	{
+	ctx_2.fillRect(0,i,dy*(n),1);
+	}
+	paint2();	
+}
+function paint2()
+{
+for(var i=0;i<n;i++)
+	{
+	for(var j=0;j<m;j++)
+		{
+		ctx_1.font = 'bold 30px sans-serif';
+		ctx_2.font = 'bold 30px sans-serif';
+		ctx_1.strokeText(''+matrix_1[j][i], i*dx+20, j*dy+35);
+		ctx_2.strokeText(''+matrix_2[j][i], i*dx+20, j*dy+35);
+		}
+	}
+}
+function change_str(m,from,to)
+{
+var temp=new Array();
+	for(var i=0;i<m;i++)
+	{
+	temp[i]=m[from][i];
+	m[from][i]=m[to][i];
+	m[to][i]=temp[i];
+	}
+return m;	
+}
+function change_row(m,from,to)
+{
+var temp=new Array();
+	for(var j=0;j<n;j++)
+	{
+	temp[j]=m[j][from];
+	m[j][from]=m[j][to];
+	m[j][to]=temp[j];
+	}
+return m;
+}
+function math()
+{
+//---------
+//алгоритм
+//matrix_1 & matrix_2
+for(var i=0;i<n;i++)
+{
+ch_m1[i]=new Array();
+	for(var j=0;j<10;j++)
+	{
+	ch_m1[i][j]=0;
+	}
+}
+for(var i=0;i<n;i++)
+{
+	for(var j=0;j<m;j++)
+	{
+	ch_m1[i][matrix_1[i][j]]+=1;
+	}
+}
+
+for(var i=0;i<n;i++)
+{
+ch_m2[i]=new Array();
+	for(var j=0;j<10;j++)
+	{
+	ch_m2[i][j]=0;
+	}
+}
+for(var i=0;i<n;i++)
+{
+	for(var j=0;j<m;j++)
+	{
+	ch_m2[i][matrix_2[i][j]]+=1;
+	}
+}
+
+
+matrix_2_temp=new Array();
+for(var i=0;i<n;i++)
+{
+matrix_2_temp[i]=new Array();
+for (var j=0;j<m;j++) matrix_2_temp[i][j]=matrix_2[i][j];
+}
+
+//----------------выставляем строки----
+var num=0;
+var g_key=0;
+var key;
+var str_n=0;
+for(var str_1=0;str_1<n;str_1++)
+{
+	num=0;
+	for(var str_2=str_n;str_2<n;str_2++)
+		{
+		key=0;
+		for(var i=0;i<10;i++)
+			{
+			if(ch_m1[str_1][i] != ch_m2[str_2][i]) {key=1;num++;}
+			}
+		if(key==0)
+			{
+			var ch_temp=new Array();
+			for(var j=0;j<10;j++)
+				{
+				ch_temp[j]=ch_m2[str_1][j];
+				ch_m2[str_1][j]=ch_m2[str_2][j];
+				ch_m2[str_2][j]=ch_temp[j];
+				}
+				str_n=str_1+1;
+				break;
+			}
+		}
+}
+
+
+var ch_row1=new Array();
+var ch_row2=new Array();
+for(var j=0;j<m;j++)
+{
+ch_row1[j]=new Array();
+ch_row2[j]=new Array()
+	for(var i=0;i<10;i++)
+	{
+	ch_row1[j][i]=0;
+	ch_row2[j][i]=0
+	}
+}
+for(var j=0;j<m;j++)
+{
+	for(var i=0;i<n;i++)
+	{
+	ch_row1[j][matrix_1[i][j]]+=1;
+	ch_row2[j][matrix_1[i][j]]+=1;
+	}
+}
+
+var row_n=0;
+for(var row_1=0;row_1<m;row_1++)
+{
+	num=0;
+	for(var row_2=row_n;row_2<m;row_2++)
+		{
+		key=0;
+		for(var i=0;i<10;i++)
+			{
+			if(ch_row1[row_1][i] != ch_row2[row_2][i]) {key=1;num++;}
+			}
+		if(key==0)
+			{
+			var ch_temp=new Array();
+			for(var j=0;j<10;j++)
+				{
+				ch_temp[j]=ch_row2[row_1][j];
+				ch_row2[row_1][j]=ch_row2[row_2][j];
+				ch_row2[row_2][j]=ch_temp[j];
+				}
+				row_n=row_1+1;
+				break;
+			}
+		}
+}
+
+var key_temp=0;
+
+for(var i=0;i<n;i++)
+{
+
+for(var j=0;j<10;j++)
+if(ch_m1[i][j] != ch_m2[i][j]) {key_temp=1;break;}
+if(key_temp==1) {g_key=1;break;}
+}
+
+key_temp=0;
+for(var j=0;j<m;j++)
+{
+
+for(var i=0;i<10;i++)
+if(ch_row1[j][i] != ch_row2[j][i]) {key_temp=1;break;}
+if(key_temp==1) {g_key=1;break;}
+}
+
+if(g_key==1) alert("Not isomorphically!");
+else alert("Isomorphically!");
+
+
+//alert(g_key);
+//-----------------end-----------------
+
+//---------
+}
+    </script>
+  </body>
+
+</html>
+

@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+
+<TABLE>
+<TR>
+<TH>Введите текст</TH>
+<TH>Окно вывода</TH> 
+</TR>
+<TR>
+<TH><TEXTAREA rows=20 cols=40 name="form1"></TEXTAREA></TH>
+<TH><TEXTAREA rows=20 cols=70 name="form2"></TEXTAREA></TH>
+</TR>
+<TR>
+<TH>Длина шифра <TEXTAREA rows=1 cols=10 name="form3"></TEXTAREA></TH>
+</TR>
+<TR>
+<TH>Длина текста <TEXTAREA rows=1 cols=10 name="form4"></TEXTAREA></TH>
+</TR>
+<TR>
+<TH>Размер символа в битах <TEXTAREA rows=1 cols=10 name="form6"></TEXTAREA></TH>
+</TR>
+<TR>
+<TH>КПД <TEXTAREA rows=1 cols=10 name="form5"></TEXTAREA></TH>
+</TR>
+<TR>
+
+</TR>
+</TABLE>
+<FORM name="f1"action="javascript:run();">
+<P>
+<input type="radio" name="chb" value="S" checked="checked">Кодирование<BR>
+<input type="radio" name="chb" value="D">Декодирование<BR>
+<input name="submit" value="RUN" type="submit">
+<P>
+</FORM>
+<BR>
+<SCRIPT type="text/javascript">
+function Node(fq, name)
+{
+	this.p=null;
+    this.t=null;
+	this.f=null;
+    this.fq = fq;
+    this.name = name;
+}
+var root=new Node(0,""); 
+function check(s,c)
+{
+var k=0;
+var i;
+for(i=0;i<s.length;i++)
+{
+if(c==s.charAt(i)) {k++;break;}
+}
+if(k) return i;
+else return -1;
+}
+var temp_out="";
+function show()
+{
+show1(root);
+form2.value=temp_out;
+}
+function show1(p)
+{
+if(p){
+if (p.t) temp_out+=show1(p.t);
+   temp_out+=p.name;
+if (p.f) temp_out+=show1(p.f);
+}
+}
+function run()
+{
+var tmp_s=form1.value;
+var temp_ch="";
+ f1_g = document.f1.chb;
+ for (i=0; i< f1_g.length; i++) {
+     if (f1_g[i].checked) {
+	 temp_ch=f1_g[i].value;
+	 }
+     }
+	 
+if(temp_ch=="S")
+	{
+
+if(!tmp_s.length)
+	{
+	alert("Пустое окно ввода!");
+	return;
+	}
+	var fq=new Array();
+	var t="";
+	for(var i=0;i<tmp_s.length;i++)
+	{
+	if(check(t,tmp_s.charAt(i))==-1)
+	{
+	t+=tmp_s.charAt(i);
+	fq[check(t,tmp_s.charAt(i))]=1;
+	}
+	else
+	{
+	fq[check(t,tmp_s.charAt(i))]++;
+	}
+	}
+	var t_ar=new Array();
+	for(var i=0;i<t.length;i++)
+	{
+	var t_node=new Node(fq[i],t.charAt(i));
+	t_ar.push(t_node);
+	}
+	
+	while(t_ar.length!=1){
+	var t_n=0;
+	for(var l=0;l<t_ar.length;l++)
+	{
+	if(t_ar[l].fq>t_n) t_n=t_ar[l].fq;
+	}
+	var t_ar2=new Array();
+	while(t_ar.length)
+	{
+	var n=0;
+	var t_node1=new Node(t_n,"");
+	if(t_ar.length==1)
+	{
+	var tmp=new Node(0,"");
+	tmp=t_ar.pop();
+	t_ar2.push(tmp);
+	break;
+	}
+	for(var i=0;i<t_ar.length;i++)
+	{
+	if(t_ar[i].fq<=t_node1.fq) {t_node1=t_ar[i];n=i;}
+	}
+	t_ar.splice(n,1);
+	var t_node2=new Node(t_n,"");
+	for(var i=0;i<t_ar.length;i++)
+	{
+	if(t_ar[i].fq<=t_node2.fq) {t_node2=t_ar[i];n=i;}
+	}
+	t_ar.splice(n,1);
+	
+	var t_node3=new Node(t_node1.fq+t_node2.fq,t_node1.name+t_node2.name);
+	t_node3.f=t_node1;
+	t_node3.t=t_node2;
+	t_node1.p=t_node3;
+	t_node2.p=t_node3;
+	//alert(t_node3.name);
+	t_ar2.push(t_node3);
+	}
+	t_ar=t_ar2;
+	}
+	root=t_ar.pop();
+	//alert(root.name);
+//	form2.value=root.name+"\n"+root.f.name+" "+root.t.name;
+	//------------
+	//show();
+	//------------
+	//-----------
+	var s_out="";
+	var t_node=new Node(0,"");
+	
+	for(var i=0;i<tmp_s.length;i++)
+	{
+	
+	var tmp="";
+	t_node=root;
+	while((t_node.t)&&(t_node.f)){
+	if(check(t_node.t.name,tmp_s.charAt(i))>=0)
+	{
+	t_node=t_node.t;
+	}
+	else
+	{
+	t_node=t_node.f;
+	}
+	}
+	while((t_node)&&(t_node.p))
+	{
+	if(t_node.p.t==t_node)
+	{
+	tmp+=1;
+	}
+	else {
+	tmp+=0;
+	}
+	t_node=t_node.p;
+	}
+	var temp="";
+	for(var j=tmp.length-1;j>=0;j--)
+	{
+	temp+=tmp.charAt(j);
+	}
+	s_out+=temp;
+	}
+	form5.value=(tmp_s.length*form6.value)/s_out.length;
+	form4.value=tmp_s.length;
+	form3.value=s_out.length;
+	form2.value=s_out;
+	//-----------
+	}
+else
+	{
+if(root.name=="") {alert("Штобы расшифровать нужно заполнить дерево - то есть ввести пример!");return;}
+if(!tmp_s.length)
+	{
+	alert("Пустое окно ввода!");
+	return;
+	}
+	var k=0;
+	for(var i=0;i<tmp_s.length;i++)
+	{
+	if((tmp_s.charAt(i)!=" ")&&(tmp_s.charAt(i)!="1")&&(tmp_s.charAt(i)!="0")) k++;
+	}
+	if(k)
+	{
+	alert("Не похоже на шифровку!");
+	return;
+	}
+	var tmp_out="";
+	var t_node=new Node(0,"");
+	
+	for(var i=0;i<tmp_s.length;)
+	{
+	var tmp="";
+	t_node=root;
+	while((t_node.f)&&(t_node.t))
+	{
+		/*(tmp_s.charAt(i)!=" ")&&*/
+		if(tmp_s.charAt(i)=="1")
+		{
+		t_node=t_node.t;
+		}
+		else 
+		{
+		t_node=t_node.f;
+		}
+		tmp=t_node.name;
+		i++;
+	
+	}
+	
+	tmp_out+=tmp;
+	}
+	form2.value=tmp_out;
+	}	
+}
+</SCRIPT>
+
+</BODY>
+</HTML>
