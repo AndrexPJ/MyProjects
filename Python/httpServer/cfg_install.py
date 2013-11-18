@@ -18,8 +18,15 @@ config.add_section('pgenerator_cfg')
 config.set('pgenerator_cfg','pgenerator_cfg_path','./cfgs/pgenerator.cfg')
 ######### ############### #########
 
+######### Static   Pages  #########
+config.add_section('pstatic_cfg')
+config.set('pstatic_cfg','pstatic_cfg_path','./cfgs/pstatic.cfg')
+###################################
+
 with open('./cfgs/main.cfg', 'wb') as configfile:
     config.write(configfile)
+
+
 
 
 ######### Page Generators #########
@@ -29,5 +36,15 @@ config.add_section('pgenerators')
 config.set('pgenerators', 'pxgenerator', './pxgen/',)
 
 with open('./cfgs/pgenerator.cfg', 'wb') as configfile:
+    config.write(configfile)
+###################################
+
+
+######### Static   Pages  #########
+config = ConfigParser.RawConfigParser()
+config.add_section('static_paths')
+config.set('static_paths','./','./moais-webapps/')
+
+with open('./cfgs/pstatic.cfg', 'wb') as configfile:
     config.write(configfile)
 ###################################
