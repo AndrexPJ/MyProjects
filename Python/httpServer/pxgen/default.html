@@ -49,7 +49,7 @@ td{
 }
 
 #tags:hover {
-    margin-left: 0px;
+    margin-left: -10px;
 }
 
 #tags{
@@ -111,8 +111,10 @@ td{
 	</div> 
 	<div class="content_center">
 		<div id="gallery">
-		  [[MEDIAIN]]
-                </div>
+        {% for (href,src) in images %}
+		  <a href="{{ href }}"><img src="{{ src }}" /></a>
+        {% endfor %}
+        </div>
 	</div> 
 	
 </div>

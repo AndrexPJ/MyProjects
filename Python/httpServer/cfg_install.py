@@ -26,7 +26,7 @@ with open('./cfgs/main.cfg', 'wb') as configfile:
 config = ConfigParser.RawConfigParser()
 config.add_section('pgenerator')
 config.add_section('pgenerators')
-config.set('pgenerators', 'pxgenerator', './pageGen/',)
+config.set('pgenerators', 'pxgenerator', './pxgen/',)
 
 with open('./cfgs/pgenerator.cfg', 'wb') as configfile:
     config.write(configfile)

@@ -11,7 +11,7 @@ sys.path.append("./fileDriver/")
 import fileDriver.fileDriver as fileDriver 
 sys.path.pop()
 
-
+############## page generator factory ##################
 class page_generator_factory:
     def __init__(self, cfg_path):
         self.__config__ = ConfigParser.RawConfigParser()
@@ -33,7 +33,7 @@ class page_generator_factory:
             return self.generators[name]
         except KeyError:
             raise errors.ClientError(404,"Not Found")
-            
+########################################################            
         
         
 
