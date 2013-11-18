@@ -5,9 +5,11 @@ import sys
 
 sys.path.append("./threadPool")
 import threadPool
+sys.path.pop()
 
 sys.path.append("./httpLibs")
 import httpParser 
+sys.path.pop()
 
 parser = httpParser.Parser("\r\n")
 
@@ -24,7 +26,7 @@ def clientProcess(sock):
 
 
 host = "192.168.0.2"
-port = 2001
+port = 2002
 
 pool = threadPool.threadPool(5,10);
 

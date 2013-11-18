@@ -2,6 +2,7 @@ import sys
 
 sys.path.append("./Errors")
 import Errors.errors as errors
+sys.path.pop()
 
 ###########################################
 class requestLine:

@@ -5,8 +5,9 @@ params = ("upcoming","YNGMv2DF8r2H2tFzBjAOtwPTznw0l4Ig6XBrOA1F","5")
 keys_list = ["photos","image_url"]
 
 
-class pxHTMLGenerator:
-        def __init__(self,def_page_path):
+class generator:
+        def __init__(self):
+                def_page_path = "./pageGen/default.html"
                 with open(def_page_path, 'r') as content_file:
                         self.content = content_file.read()
                 self.worker = pxWorker.pxWorker(requset_pattern,params,keys_list)
