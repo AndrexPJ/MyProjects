@@ -5,7 +5,7 @@ config = ConfigParser.RawConfigParser()
 ########## File Driver ############
 config.add_section('fdriver')
 config.set('fdriver', 'mime_path', './cfgs/mime_types.cfg')
-config.set('fdriver', 'site_dir','./')
+config.set('fdriver', 'site_dir','./sites')
 ###################################
 
 ######### Method Producer ######### 
@@ -33,7 +33,7 @@ with open('./cfgs/main.cfg', 'wb') as configfile:
 config = ConfigParser.RawConfigParser()
 config.add_section('pgenerator')
 config.add_section('pgenerators')
-config.set('pgenerators', 'pxgenerator', './pxgen/',)
+config.set('pgenerators', 'pxgenerator', './generators/pxgen/',)
 
 with open('./cfgs/pgenerator.cfg', 'wb') as configfile:
     config.write(configfile)
@@ -43,7 +43,7 @@ with open('./cfgs/pgenerator.cfg', 'wb') as configfile:
 ######### Static   Pages  #########
 config = ConfigParser.RawConfigParser()
 config.add_section('static_paths')
-config.set('static_paths','./','./moais-webapps/')
+config.set('static_paths','./','./sites/moais-webapps/')
 
 with open('./cfgs/pstatic.cfg', 'wb') as configfile:
     config.write(configfile)

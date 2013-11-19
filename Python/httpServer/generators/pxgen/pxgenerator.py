@@ -8,7 +8,7 @@ keys_list = ["photos","image_url"]
 
 class generator:
         def __init__(self):
-                def_page_path = "./pxgen2/default.html"
+                def_page_path = "./generators/pxgen/default.html"
                 with open(def_page_path, 'r') as content_file:
                         self.content = content_file.read()
                 self.worker = pxWorker.pxWorker(requset_pattern,params,keys_list)

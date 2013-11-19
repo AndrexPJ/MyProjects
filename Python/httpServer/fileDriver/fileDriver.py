@@ -71,11 +71,11 @@ class driver:
 
                 
         def default(self,file_path):
-                if (not self.path_checker(self.__site_dir__+"/"+file_path)):
+                if (not self.path_checker(file_path)):
                         raise(errors.ClientError(403,"Forbidden"))
                 else:
                         try :
-                                with open(self.__site_dir__+"/"+file_path, 'r') as content_file:
+                                with open(file_path, 'r') as content_file:
                                         content = content_file.read()
                                         return content
                         except IOError:

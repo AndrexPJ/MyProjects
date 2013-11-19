@@ -50,13 +50,26 @@ class static_path_generator:
                 print "YES"
             else:
                 print "NO"
-    def generate_path(self,name):
-        try:
-            return self.staticpaths[name]
-        except KeyError:
-            return name
-    def generate_path_from_list(self,path_list):
-            return "/".join(map(lambda p: self.generate_path(p),path_list))
+
+    def split_path(self,path,splitter,steps):
+        temp = path[::-1].split('/',steps)
+        out = (map(lambda s : s[::-1],temp))[::-1]
+        return out
+
+    def generate_real_path(self,fake_path):
+        count  = len(fake_path.split('/'))
+        for step in range(1,count):
+            tmp = self.split_path(fake_path,'/',step)
+            try:
+                tmp[0] = self.check_path(tmp[0]+'/')
+                return '/'.join(tmp)
+            except KeyError:
+                pass
+        return '/'.join(tmp)
+
+    def check_path(self,path):
+        return self.staticpaths[path]
+
 ############# ########################## ###############
         
 
@@ -70,22 +83,20 @@ class method_producer:
                 self.__generator_factory__  = page_generator_factory(self.__config__.get('pgenerator_cfg','pgenerator_cfg_path'))
                 self.__static_path_gen__ = static_path_generator(self.__config__.get('pstatic_cfg','pstatic_cfg_path'))
        def GET(self,path,params):
+                if (path[len(path)-1] == "/"):
+                    path = path + self.__default_pg__
+                ######## page generator #########
                 if(path.find('.') == -1):
-                        ##tmp = path.split('/')
+                        print "Loaded page generator" 
                         generator = self.__generator_factory__.get_generator(path[1::])
                         return generator.generate(path,params)
-                if(path[len(path)-1] == "/"):
-                        path = path + self.__default_pg__
-                tmp = path[::-1].split('/',1)
-                file_name = tmp[0][::-1]
-                file_path = tmp[1][::-1]
-                #print file_name
-                #print file_path
-                if (file_path == ""):
-                    file_path = "/"
-                really_path = self.__static_path_gen__.generate_path("."+file_path)
-                print really_path
-                return self.__fdriver__.getfile(really_path + "/" + file_name)
+                ####### ############### #########
+
+                #######   static page   #########
+                real_path = self.__static_path_gen__.generate_real_path(path)
+                print "Loaded :" + real_path
+                return self.__fdriver__.getfile(real_path)
+                ###### ################ #########
 
        def produce(self,method_name):
                 try:

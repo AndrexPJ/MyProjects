@@ -31,10 +31,14 @@ class APIWorker:
         def getRequestPattern(self):
                 return self.request_pattern
         def getInfoByKeys(self,keys_list):
-                request = requests.get(self.request_pattern % self.params)
-                jsn =  request.json()
-                out =  self.__getByKeys__(jsn,keys_list)
-                return out
+                try:
+                        request = requests.get(self.request_pattern % self.params)
+                        jsn =  request.json()
+                        out =  self.__getByKeys__(jsn,keys_list)
+                        return out
+                except requests.ConnectionError:
+                        print "500px connection problem"
+                        return []
 
 
 
