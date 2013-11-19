@@ -14,41 +14,54 @@ sys.path.pop()
 parser = httpParser.Parser("\r\n")
 
 
+class httpServer:
+	def __init__(self,host,port,thread_count):
+		self.thread_count = thread_count
+		self.pool = threadPool.threadPool(thread_count,10)
+		self.serv_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self.serv_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+		self.serv_socket.bind((host, port))
+	
+	def start(self):
+		self.pool.start()
+		self.__listener__()
+	
+	def __listener__(self):
+		self.serv_socket.listen(self.thread_count)
+		while True:
+		    (sock, addr) = self.serv_socket.accept()
+		    self.pool.job(self.clientProcess,[sock],1)
+	
+	def clientProcess(self,sock):
+        	buf = sock.recv(2048)
+        	resp = parser.get_response(buf)
+        	sock.sendall(resp)
+        	sock.close()
+	
+	def stop(self):
+		self.pool.stop()
 
 
-
-def clientProcess(sock):
-                buf = sock.recv(1024)
-                resp = parser.get_response(buf)
-                #print resp
-                sock.sendall(resp)
-                sock.close()
 
 
 host = "192.168.0.2"
 port = 2002
 
-pool = threadPool.threadPool(5,10);
-
+server = httpServer(host,port,5)
 
 ###################################
 def ctrlc_handler(signum, frame):
-    pool.stop()
+    server.stop()
     exit(0)
 
 signal.signal(signal.SIGINT, ctrlc_handler)
-####################################
+###################################
+
+server.start()
 
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind((host, port))
-pool.start()
-s.listen(5)
-while True:
-        (sock, addr) = s.accept()
-        pool.job(clientProcess,[sock],1)
-#pool.stop()
+
+
 
 
 
