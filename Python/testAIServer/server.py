@@ -13,7 +13,7 @@ s.listen(5)
 
 print sock.recv(1024)
 time.sleep(3)
-sock.send("ACK")
+sock.send("ACK\r\n")
 
 while(1):
         buf = sock.recv(1024)
