@@ -16,15 +16,24 @@ int main()
 {
 
     double height = 0.0;
-    HeightControlSystem hc(&height, 0.01);
+    double angle = 122.0;
+
+    HeadingAngleControlSystem hac(&angle,0.04);
+    HeadingAngleMeterSystem ham(&angle);
+    HeadingAngleAutoControlSystem aac(&ham,&hac,angle);
+
+    HeightControlSystem hc(&height, 0.04);
     HeightMeterSystem hm(&height);
     HeightAutoControlSystem ac(&hm,&hc,height);
-
+    aac.start_control();
     ac.start_control();
+
     ac.set_height(1000);
+    aac.set_angle(10);
+
     for(int i = 0; i < 10000; i++){
         cout << i << " ";
-        cout<< height << " ";
+        cout<< angle << " ";
         usleep(100000);
         cout<< height << endl;
     }

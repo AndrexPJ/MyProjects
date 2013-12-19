@@ -14,5 +14,5 @@ HeadingAngleControlSystem::HeadingAngleControlSystem(double *heading_angle, doub
 
 void HeadingAngleControlSystem::set_value(double heading_angle){
     double current_heading_angle = *(this->heading_angle);
-    *(this->heading_angle) = current_heading_angle + (heading_angle - heading_angle) * this->change_rate;
+    *(this->heading_angle) = current_heading_angle + (heading_angle - current_heading_angle) * this->change_rate;
 }
