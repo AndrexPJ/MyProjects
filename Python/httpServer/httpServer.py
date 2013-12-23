@@ -2,6 +2,7 @@ import time
 import socket
 import signal
 import sys
+import os
 
 sys.path.append("./threadPool")
 import threadPool
@@ -44,8 +45,8 @@ class httpServer:
 
 
 
-host = "192.168.0.2"
-port = 2002
+host = "0.0.0.0"
+port = int(os.environ.get("PORT", 5000))
 
 server = httpServer(host,port,5)
 
