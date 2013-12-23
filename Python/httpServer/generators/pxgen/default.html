@@ -145,9 +145,10 @@ img {
 
 <script type="text/javascript">
     function imagesUpdate(feature){
-        setLoadingImage();
+        setLoadingImage(20);
         loadAndChangeImages(feature);
     }
+    
     function insertImage(href,url, parent){
         var a = $("<a/>").append($( "<img/>" ).attr( "src", url )).attr("href", href);
         $(parent).append(a);
@@ -158,9 +159,9 @@ img {
         $("#gallery").children().remove();
     }
 
-    function setLoadingImage(){
+    function setLoadingImage(count){
         clearImages();
-        for(var i = 0; i < 20; i++){
+        for(var i = 0; i < count; i++){
             insertImage("","/loader.gif","#gallery");
         }
     }

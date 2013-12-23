@@ -3,7 +3,7 @@
 <head>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
-	<title>Gallery 500px</title>
+<title>Gallery 500px</title>
 <style>
 
 
@@ -146,12 +146,12 @@ img {
 
 <script type="text/javascript">
     function imagesUpdate(feature){
-        setLoadingImage();
+        setLoadingImage(20);
         loadAndChangeImages(feature);
     }
-     function setLoadingImage(){
+     function setLoadingImage(count){
         clearImages();
-        for(var i = 0; i < 20; i++){
+        for(var i = 0; i < count; i++){
             insertImage("","/pxgallery/loader.gif","#gallery");
         }
     }
