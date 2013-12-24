@@ -22,8 +22,7 @@ void * HeadingAngleAutoControlSystem::control_function(void *controller){
     while(true){
         current_angle = angle_controller->meter_system->get_value();
         required_angle = angle_controller->controlled_parameter;
-        angle_controller->control_system->set_value((required_angle - current_angle) * angle_controller->angle_change_rate
-                                                    + current_angle);
+        angle_controller->control_system->change_value((required_angle - current_angle) * angle_controller->angle_change_rate);
         usleep(angle_controller->time_interval);
     }
 }
@@ -43,4 +42,12 @@ bool HeadingAngleAutoControlSystem::start_control(){
 
 bool HeadingAngleAutoControlSystem::stop_control(){
     return AutoControlSystem::stop_control();
+}
+
+
+HeadingAngleAutoControlSystem* HeadingAngleAutoControlSystemFactory::produce_system(double *controlled_heading_angle, double start_heading_angle,
+                                                                                    double change_rate){
+    HeadingAngleControlSystem *headingAngleCS = new HeadingAngleControlSystem(controlled_heading_angle, change_rate);
+    HeadingAngleMeterSystem *headingAngleMS = new HeadingAngleMeterSystem(controlled_heading_angle);
+    return new HeadingAngleAutoControlSystem(headingAngleMS,headingAngleCS,start_heading_angle);
 }

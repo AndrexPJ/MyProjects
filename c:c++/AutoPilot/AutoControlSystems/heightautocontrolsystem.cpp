@@ -20,8 +20,7 @@ void * HeightAutoControlSystem::control_function(void *controller){
     while(true){
         current_height = height_controller->meter_system->get_value();
         required_height = height_controller->controlled_parameter;
-        height_controller->control_system->set_value((required_height - current_height) * height_controller->height_change_rate
-                                                        + current_height);
+        height_controller->control_system->change_value((required_height - current_height) * height_controller->height_change_rate);
         usleep(height_controller->time_interval);
 
     }
@@ -45,3 +44,8 @@ bool HeightAutoControlSystem::stop_control(){
 }
 
 
+HeightAutoControlSystem * HeightAutoControlSystemFactory::produce_system(double *controlled_height, double start_height, double change_rate){
+    HeightControlSystem *heightCS = new HeightControlSystem(controlled_height, change_rate);
+    HeightMeterSystem *heightMS = new HeightMeterSystem(controlled_height);
+    return new HeightAutoControlSystem(heightMS,heightCS,start_height);
+}

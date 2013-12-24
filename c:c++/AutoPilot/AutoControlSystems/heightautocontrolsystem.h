@@ -25,4 +25,11 @@ public:
     bool stop_control();
 };
 
+
+class HeightAutoControlSystemFactory{
+public:
+    static HeightAutoControlSystem * produce_system(double *controlled_height,double start_height, double change_rate = 1.0);
+
+};
+
 #endif // HEIGHTAUTOCONTROLSYSTEM_H

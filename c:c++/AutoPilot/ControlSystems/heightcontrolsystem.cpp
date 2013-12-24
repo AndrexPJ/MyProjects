@@ -15,3 +15,8 @@ void HeightControlSystem::set_value(double height){
     double current_heigth = *(this->height);
     *(this->height) = current_heigth + (height - current_heigth) * this->change_rate;
 }
+
+void HeightControlSystem::change_value(double height_difference){
+     double current_heigth = *(this->height);
+     *(this->height) = current_heigth + (height_difference) * this->change_rate;
+}

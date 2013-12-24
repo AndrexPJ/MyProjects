@@ -48,7 +48,7 @@ class httpServer:
 host = "0.0.0.0"
 port = int(os.environ.get("PORT", 5000))
 
-server = httpServer(host,port,5)
+server = httpServer(host,2002,5)
 
 ###################################
 def ctrlc_handler(signum, frame):

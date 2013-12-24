@@ -27,4 +27,10 @@ public:
     bool stop_control();
 };
 
+
+class HeadingAngleAutoControlSystemFactory{
+public:
+    static HeadingAngleAutoControlSystem* produce_system(double *controlled_heading_angle,double start_heading_angle, double change_rate = 1.0);
+};
+
 #endif // HEADINGANGLEAUTOCONTROLSYSTEM_H
