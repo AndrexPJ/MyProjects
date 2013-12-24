@@ -15,6 +15,12 @@ bool AutoControlSystem::stop_control(){
    return true;
 }
 
+bool AutoControlSystem::check_system(){
+    return (pthread_kill(this->control_thread, 0) != ESRCH);
+}
+
 void * AutoControlSystem::control_function(void *arg){
     return NULL;
 }
+
+

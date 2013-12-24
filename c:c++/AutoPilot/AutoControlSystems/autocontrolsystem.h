@@ -17,6 +17,7 @@ public:
     static void *control_function(void *controller);
     bool start_control(void * control_function(void*), void *controller);
     bool stop_control(void);
+    bool check_system(void);
 };
 
 #endif // AUTOCONTROLSYSTEM_H
