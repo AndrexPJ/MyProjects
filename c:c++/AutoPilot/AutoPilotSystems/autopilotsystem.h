@@ -17,6 +17,7 @@ private:
     HeightAutoControlSystem *heightACS;
     HeadingAngleAutoControlSystem *headingAngleACS;
 public:
+    AutoPilotSystem();
     AutoPilotSystem(HeightAutoControlSystem *heightACS, HeadingAngleAutoControlSystem *headingAngleACS);
     bool set_height(double height);
     bool set_heading_angle(double heading_angle);

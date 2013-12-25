@@ -1,5 +1,10 @@
 #include "autopilotsystem.h"
 
+AutoPilotSystem::AutoPilotSystem(){
+    this->headingAngleACS = NULL;
+    this->heightACS = NULL;
+}
+
 AutoPilotSystem::AutoPilotSystem(HeightAutoControlSystem *heightACS, HeadingAngleAutoControlSystem *headingAngleACS){
     this->headingAngleACS = headingAngleACS;
     this->heightACS = heightACS;

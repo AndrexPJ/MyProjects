@@ -4,6 +4,8 @@ HeightAutoControlSystem::HeightAutoControlSystem(HeightMeterSystem *meter_system
       double height_start_value, int time_interval_microsec, double height_change_rate)
     : AutoControlSystem::AutoControlSystem(height_start_value){
 
+    this->accuracy = 0.01;
+
     this->time_interval = time_interval_microsec;
     this->height_change_rate = height_change_rate;
 
@@ -20,9 +22,13 @@ void * HeightAutoControlSystem::control_function(void *controller){
     while(true){
         current_height = height_controller->meter_system->get_value();
         required_height = height_controller->controlled_parameter;
-        height_controller->control_system->change_value((required_height - current_height) * height_controller->height_change_rate);
-        usleep(height_controller->time_interval);
 
+        double difference = required_height - current_height;
+
+        if(fabs(difference) >= height_controller->accuracy)
+            height_controller->control_system->change_value(difference * height_controller->height_change_rate);
+
+        usleep(height_controller->time_interval);
     }
 }
 

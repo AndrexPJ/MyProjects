@@ -5,11 +5,12 @@
 #include <signal.h>
 #include <iostream>
 #include <unistd.h>
+#include <cmath>
 
 class AutoControlSystem
 {
-
 public:
+    double accuracy;
     double controlled_parameter;
     pthread_t control_thread;
 

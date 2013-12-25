@@ -4,6 +4,8 @@ HeadingAngleAutoControlSystem::HeadingAngleAutoControlSystem(HeadingAngleMeterSy
        double heading_angle_start_value, int time_interval_microsec, double angle_change_rate)
      : AutoControlSystem::AutoControlSystem(heading_angle_start_value){
 
+    this->accuracy = 0.01;
+
     this->time_interval = time_interval_microsec;
     this->angle_change_rate = angle_change_rate;
 
@@ -22,7 +24,12 @@ void * HeadingAngleAutoControlSystem::control_function(void *controller){
     while(true){
         current_angle = angle_controller->meter_system->get_value();
         required_angle = angle_controller->controlled_parameter;
-        angle_controller->control_system->change_value((required_angle - current_angle) * angle_controller->angle_change_rate);
+
+        double difference = required_angle - current_angle;
+
+        if(fabs(difference) >= angle_controller->accuracy)
+            angle_controller->control_system->change_value(difference * angle_controller->angle_change_rate);
+
         usleep(angle_controller->time_interval);
     }
 }
