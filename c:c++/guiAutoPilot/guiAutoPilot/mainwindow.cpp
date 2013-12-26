@@ -62,6 +62,9 @@ MainWindow::MainWindow(AutoPilotSystem *main_autopilot, AutoPilotSystem *spare_a
     QPushButton *kill_button = new QPushButton("Kill");
     connect(kill_button, SIGNAL(clicked()),this, SLOT(kill_main_ap()));
 
+    QPushButton *reset_button = new QPushButton("Reset");
+    connect(reset_button,SIGNAL(clicked()),this,SLOT(reset_system()));
+
     height_control_l->addWidget((QWidget*)height_slider,0,0);
     height_slider->setMaximum(9000);
     connect(height_slider, SIGNAL(valueChanged(int)),h_level, SLOT(set_height(int)));
@@ -76,6 +79,7 @@ MainWindow::MainWindow(AutoPilotSystem *main_autopilot, AutoPilotSystem *spare_a
     ap_control_l->addWidget((QWidget*)stop_button,1,1);
     ap_control_l->addWidget((QWidget*)kill_button,0,0);
     ap_control_l->addWidget((QWidget*)random_button,0,1);
+    ap_control_l->addWidget((QWidget*)reset_button,2,0);
 
     QLabel *h_label = new QLabel("Height value");
     QLabel *a_label = new QLabel("Angle value");
@@ -94,7 +98,7 @@ MainWindow::MainWindow(AutoPilotSystem *main_autopilot, AutoPilotSystem *spare_a
 
     QTimer *timer = new QTimer;
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(10);
+    timer->start(40);
 
 }
 
@@ -124,19 +128,22 @@ void MainWindow::set_angle(int angle){
 }
 
 void MainWindow::start(){
-    if(this->main_ap_state != -1){
-     this->main_ap_state = 1;
-     this->main_ap_b->set_state(1);
-    }
-    else{
-        if(this->spare_ap_state != -1){
-         this->main_ap_state = 1;
-         this->spare_ap_b->set_state(1);
-        }
-    }
+
     if(!this->started){
+        if(this->main_ap_state != -1){
+         this->main_ap_state = 1;
+         this->main_ap_b->set_state(1);
+         this->plane_control->start_control();
+        }
+        else{
+            if(this->spare_ap_state != -1){
+             this->spare_ap_state = 1;
+             this->spare_ap_b->set_state(1);
+             this->plane_control->start_spare_control();
+            }
+        }
         this->started = true;
-        this->plane_control->start_control();
+
     }
 }
 
@@ -147,7 +154,7 @@ void MainWindow::stop(){
     }
     else{
         if(this->spare_ap_state != -1){
-         this->main_ap_state = 0;
+         this->spare_ap_state = 0;
          this->spare_ap_b->set_state(0);
         }
     }
@@ -167,7 +174,7 @@ void MainWindow::kill_main_ap(){
 }
 
 void MainWindow::random(){
-    if(random_state && started){
+    if(random_state){
        double r = double(qrand() % 20 - 10);
        *(this->height) += r;
        r = double(qrand() % 3 - 1);
@@ -177,4 +184,12 @@ void MainWindow::random(){
 
 void MainWindow::random_start_stop(){
     this->random_state = !this->random_state;
+}
+
+void MainWindow::reset_system(){
+    this->stop();
+    this->main_ap_b->set_state(0);
+    this->main_ap_state = 0;
+    this->spare_ap_b->set_state(0);
+    this->spare_ap_state = 0;
 }

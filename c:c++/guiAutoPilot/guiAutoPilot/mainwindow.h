@@ -45,6 +45,7 @@ public slots:
     void update();
     void random();
     void random_start_stop();
+    void reset_system();
 
 
 };

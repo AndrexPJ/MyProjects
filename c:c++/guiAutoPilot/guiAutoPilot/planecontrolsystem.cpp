@@ -13,6 +13,7 @@ PlaneControlSystem::PlaneControlSystem(AutoPilotSystem *main_autopilot, AutoPilo
     this->required_height = 0.0;
     this->required_heading_angle = 0.0;
     this->main_autopilot_state = false;
+    this->spare_autopilot_state = false;
 }
 
 PlaneControlSystem::~PlaneControlSystem(){
@@ -57,6 +58,13 @@ bool PlaneControlSystem::stop_control(){
     pthread_cancel(this->control_thread);
     this->main_autopilot->stop_control();
     this->spare_autopilot->stop_control();
+    return true;
+}
+
+bool PlaneControlSystem::start_spare_control(){
+    this->spare_autopilot->start_control();
+    this->spare_autopilot_state = true;
+    pthread_create(&(this->control_thread),NULL,control_function,this);
     return true;
 }
 

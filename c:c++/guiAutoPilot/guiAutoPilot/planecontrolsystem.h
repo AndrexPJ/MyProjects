@@ -10,7 +10,7 @@ class PlaneControlSystem
 private:
     double *plane_height, *plane_heading_angle;
     double required_height, required_heading_angle;
-    bool main_autopilot_state;
+    bool main_autopilot_state, spare_autopilot_state;
 
     AutoPilotSystem *main_autopilot;
     AutoPilotSystem *spare_autopilot;
@@ -27,6 +27,8 @@ public:
     static void *control_function(void *controller);
     bool start_control(void);
     bool stop_control(void);
+
+    bool start_spare_control(void);
 
     void set_height(double height);
     void set_heading_angle(double heading_angle);
