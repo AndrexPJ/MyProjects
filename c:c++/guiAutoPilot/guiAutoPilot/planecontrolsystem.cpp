@@ -65,7 +65,7 @@ void PlaneControlSystem::set_height(double height){
     this->required_height = height;
     //if(this->main_autopilot_state)
         this->main_autopilot->set_height(this->required_height);
-    //else
+    //if(this->get_spare_autopilot_state())
         this->spare_autopilot->set_height(this->required_height);
 }
 
@@ -73,8 +73,8 @@ void PlaneControlSystem::set_heading_angle(double heading_angle){
     this->required_heading_angle = heading_angle;
     //if(this->main_autopilot_state)
         this->main_autopilot->set_heading_angle(this->required_heading_angle);
-    //else
-        this->main_autopilot->set_heading_angle(this->required_heading_angle);
+    //else(this->get_spare_autopilot_state())
+        this->spare_autopilot->set_heading_angle(this->required_heading_angle);
 }
 
 double PlaneControlSystem::get_height(){
