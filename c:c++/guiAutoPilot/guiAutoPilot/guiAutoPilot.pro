@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     planecontrolsystem.cpp \
     autopilotgui.cpp \
     tools.cpp \
-    guielements.cpp
+    guielements.cpp \
+    mainwindow.cpp
 
 
 HEADERS  += \
@@ -43,7 +44,8 @@ HEADERS  += \
     planecontrolsystem.h \
     autopilotgui.h \
     tools.h \
-    guielements.h
+    guielements.h \
+    mainwindow.h
 
 
 FORMS    += mainwindow.ui

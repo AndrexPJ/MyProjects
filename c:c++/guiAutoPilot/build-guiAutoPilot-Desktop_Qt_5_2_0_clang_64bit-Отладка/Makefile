@@ -59,7 +59,10 @@ SOURCES       = ../guiAutoPilot/main.cpp \
 		../guiAutoPilot/planecontrolsystem.cpp \
 		../guiAutoPilot/autopilotgui.cpp \
 		../guiAutoPilot/tools.cpp \
-		../guiAutoPilot/guielements.cpp moc_guielements.cpp
+		../guiAutoPilot/guielements.cpp \
+		../guiAutoPilot/mainwindow.cpp moc_autopilotgui.cpp \
+		moc_guielements.cpp \
+		moc_mainwindow.cpp
 OBJECTS       = main.o \
 		autocontrolsystem.o \
 		headingangleautocontrolsystem.o \
@@ -75,7 +78,10 @@ OBJECTS       = main.o \
 		autopilotgui.o \
 		tools.o \
 		guielements.o \
-		moc_guielements.o
+		mainwindow.o \
+		moc_autopilotgui.o \
+		moc_guielements.o \
+		moc_mainwindow.o
 DIST          = ../../../../Qt/5.2.0/clang_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/5.2.0/clang_64/mkspecs/qdevice.pri \
 		../../../../Qt/5.2.0/clang_64/mkspecs/features/device_config.prf \
@@ -477,7 +483,7 @@ guiAutoPilot.app/Contents/Info.plist:
 	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,@TYPEINFO@,????,g" -e "s,@ICON@,,g" -e "s,@EXECUTABLE@,guiAutoPilot,g" -e "s,@TYPEINFO@,????,g" ../../../../Qt/5.2.0/clang_64/mkspecs/macx-clang/Info.plist.app >guiAutoPilot.app/Contents/Info.plist
 dist: 
 	@test -d .tmp/guiAutoPilot1.0.0 || mkdir -p .tmp/guiAutoPilot1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/guiAutoPilot1.0.0/ && $(COPY_FILE) --parents ../guiAutoPilot/AutoControlSystems/autocontrolsystem.h ../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.h ../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.h ../guiAutoPilot/AutoPilotSystems/autopilotsystem.h ../guiAutoPilot/ControlSystems/controlsystem.h ../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h ../guiAutoPilot/ControlSystems/heightcontrolsystem.h ../guiAutoPilot/MeterSystems/headinganglemetersystem.h ../guiAutoPilot/MeterSystems/heightmetersystem.h ../guiAutoPilot/MeterSystems/metersystem.h ../guiAutoPilot/planecontrolsystem.h ../guiAutoPilot/autopilotgui.h ../guiAutoPilot/tools.h ../guiAutoPilot/guielements.h .tmp/guiAutoPilot1.0.0/ && $(COPY_FILE) --parents ../guiAutoPilot/main.cpp ../guiAutoPilot/AutoControlSystems/autocontrolsystem.cpp ../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.cpp ../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.cpp ../guiAutoPilot/AutoPilotSystems/autopilotsystem.cpp ../guiAutoPilot/ControlSystems/controlsystem.cpp ../guiAutoPilot/ControlSystems/headinganglecontrolsystem.cpp ../guiAutoPilot/ControlSystems/heightcontrolsystem.cpp ../guiAutoPilot/MeterSystems/headinganglemetersystem.cpp ../guiAutoPilot/MeterSystems/heightmetersystem.cpp ../guiAutoPilot/MeterSystems/metersystem.cpp ../guiAutoPilot/planecontrolsystem.cpp ../guiAutoPilot/autopilotgui.cpp ../guiAutoPilot/tools.cpp ../guiAutoPilot/guielements.cpp .tmp/guiAutoPilot1.0.0/ && $(COPY_FILE) --parents ../guiAutoPilot/mainwindow.ui .tmp/guiAutoPilot1.0.0/ && (cd `dirname .tmp/guiAutoPilot1.0.0` && $(TAR) guiAutoPilot1.0.0.tar guiAutoPilot1.0.0 && $(COMPRESS) guiAutoPilot1.0.0.tar) && $(MOVE) `dirname .tmp/guiAutoPilot1.0.0`/guiAutoPilot1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/guiAutoPilot1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/guiAutoPilot1.0.0/ && $(COPY_FILE) --parents ../guiAutoPilot/AutoControlSystems/autocontrolsystem.h ../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.h ../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.h ../guiAutoPilot/AutoPilotSystems/autopilotsystem.h ../guiAutoPilot/ControlSystems/controlsystem.h ../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h ../guiAutoPilot/ControlSystems/heightcontrolsystem.h ../guiAutoPilot/MeterSystems/headinganglemetersystem.h ../guiAutoPilot/MeterSystems/heightmetersystem.h ../guiAutoPilot/MeterSystems/metersystem.h ../guiAutoPilot/planecontrolsystem.h ../guiAutoPilot/autopilotgui.h ../guiAutoPilot/tools.h ../guiAutoPilot/guielements.h ../guiAutoPilot/mainwindow.h .tmp/guiAutoPilot1.0.0/ && $(COPY_FILE) --parents ../guiAutoPilot/main.cpp ../guiAutoPilot/AutoControlSystems/autocontrolsystem.cpp ../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.cpp ../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.cpp ../guiAutoPilot/AutoPilotSystems/autopilotsystem.cpp ../guiAutoPilot/ControlSystems/controlsystem.cpp ../guiAutoPilot/ControlSystems/headinganglecontrolsystem.cpp ../guiAutoPilot/ControlSystems/heightcontrolsystem.cpp ../guiAutoPilot/MeterSystems/headinganglemetersystem.cpp ../guiAutoPilot/MeterSystems/heightmetersystem.cpp ../guiAutoPilot/MeterSystems/metersystem.cpp ../guiAutoPilot/planecontrolsystem.cpp ../guiAutoPilot/autopilotgui.cpp ../guiAutoPilot/tools.cpp ../guiAutoPilot/guielements.cpp ../guiAutoPilot/mainwindow.cpp .tmp/guiAutoPilot1.0.0/ && $(COPY_FILE) --parents ../guiAutoPilot/mainwindow.ui .tmp/guiAutoPilot1.0.0/ && (cd `dirname .tmp/guiAutoPilot1.0.0` && $(TAR) guiAutoPilot1.0.0.tar guiAutoPilot1.0.0 && $(COMPRESS) guiAutoPilot1.0.0.tar) && $(MOVE) `dirname .tmp/guiAutoPilot1.0.0`/guiAutoPilot1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/guiAutoPilot1.0.0
 
 
 clean:compiler_clean 
@@ -502,35 +508,10 @@ compiler_objective_c_make_all:
 compiler_objective_c_clean:
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_guielements.cpp
+compiler_moc_header_make_all: moc_autopilotgui.cpp moc_guielements.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_guielements.cpp
-moc_guielements.cpp: ../guiAutoPilot/guielements.h
-	/Users/AndrexPJ/Programming/Qt/5.2.0/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 $(INCPATH) ../guiAutoPilot/guielements.h -o moc_guielements.cpp
-
-compiler_moc_source_make_all:
-compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h
-compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h
-ui_mainwindow.h: ../guiAutoPilot/mainwindow.ui
-	/Users/AndrexPJ/Programming/Qt/5.2.0/clang_64/bin/uic ../guiAutoPilot/mainwindow.ui -o ui_mainwindow.h
-
-compiler_rez_source_make_all:
-compiler_rez_source_clean:
-compiler_yacc_decl_make_all:
-compiler_yacc_decl_clean:
-compiler_yacc_impl_make_all:
-compiler_yacc_impl_clean:
-compiler_lex_make_all:
-compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
-
-####### Compile
-
-main.o: ../guiAutoPilot/main.cpp ../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QApplication \
-		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qapplication.h \
-		../guiAutoPilot/autopilotgui.h \
+	-$(DEL_FILE) moc_autopilotgui.cpp moc_guielements.cpp moc_mainwindow.cpp
+moc_autopilotgui.cpp: ../guiAutoPilot/guielements.h \
 		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/QtGui \
 		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessible.h \
 		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessiblebridge.h \
@@ -631,88 +612,10 @@ main.o: ../guiAutoPilot/main.cpp ../../../../Qt/5.2.0/clang_64/lib/QtWidgets.fra
 		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
 		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		../guiAutoPilot/tools.h \
-		../guiAutoPilot/guielements.h \
-		../guiAutoPilot/planecontrolsystem.h \
-		../guiAutoPilot/AutoPilotSystems/autopilotsystem.h \
-		../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.h \
-		../guiAutoPilot/AutoControlSystems/autocontrolsystem.h \
-		../guiAutoPilot/MeterSystems/heightmetersystem.h \
-		../guiAutoPilot/MeterSystems/metersystem.h \
-		../guiAutoPilot/ControlSystems/heightcontrolsystem.h \
-		../guiAutoPilot/ControlSystems/controlsystem.h \
-		../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.h \
-		../guiAutoPilot/MeterSystems/headinganglemetersystem.h \
-		../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../guiAutoPilot/main.cpp
+		../guiAutoPilot/autopilotgui.h
+	/Users/AndrexPJ/Programming/Qt/5.2.0/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 $(INCPATH) ../guiAutoPilot/autopilotgui.h -o moc_autopilotgui.cpp
 
-autocontrolsystem.o: ../guiAutoPilot/AutoControlSystems/autocontrolsystem.cpp ../guiAutoPilot/AutoControlSystems/autocontrolsystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o autocontrolsystem.o ../guiAutoPilot/AutoControlSystems/autocontrolsystem.cpp
-
-headingangleautocontrolsystem.o: ../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.cpp ../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.h \
-		../guiAutoPilot/AutoControlSystems/autocontrolsystem.h \
-		../guiAutoPilot/MeterSystems/headinganglemetersystem.h \
-		../guiAutoPilot/MeterSystems/metersystem.h \
-		../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h \
-		../guiAutoPilot/ControlSystems/controlsystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o headingangleautocontrolsystem.o ../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.cpp
-
-heightautocontrolsystem.o: ../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.cpp ../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.h \
-		../guiAutoPilot/AutoControlSystems/autocontrolsystem.h \
-		../guiAutoPilot/MeterSystems/heightmetersystem.h \
-		../guiAutoPilot/MeterSystems/metersystem.h \
-		../guiAutoPilot/ControlSystems/heightcontrolsystem.h \
-		../guiAutoPilot/ControlSystems/controlsystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o heightautocontrolsystem.o ../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.cpp
-
-autopilotsystem.o: ../guiAutoPilot/AutoPilotSystems/autopilotsystem.cpp ../guiAutoPilot/AutoPilotSystems/autopilotsystem.h \
-		../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.h \
-		../guiAutoPilot/AutoControlSystems/autocontrolsystem.h \
-		../guiAutoPilot/MeterSystems/heightmetersystem.h \
-		../guiAutoPilot/MeterSystems/metersystem.h \
-		../guiAutoPilot/ControlSystems/heightcontrolsystem.h \
-		../guiAutoPilot/ControlSystems/controlsystem.h \
-		../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.h \
-		../guiAutoPilot/MeterSystems/headinganglemetersystem.h \
-		../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o autopilotsystem.o ../guiAutoPilot/AutoPilotSystems/autopilotsystem.cpp
-
-controlsystem.o: ../guiAutoPilot/ControlSystems/controlsystem.cpp ../guiAutoPilot/ControlSystems/controlsystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controlsystem.o ../guiAutoPilot/ControlSystems/controlsystem.cpp
-
-headinganglecontrolsystem.o: ../guiAutoPilot/ControlSystems/headinganglecontrolsystem.cpp ../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h \
-		../guiAutoPilot/ControlSystems/controlsystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o headinganglecontrolsystem.o ../guiAutoPilot/ControlSystems/headinganglecontrolsystem.cpp
-
-heightcontrolsystem.o: ../guiAutoPilot/ControlSystems/heightcontrolsystem.cpp ../guiAutoPilot/ControlSystems/heightcontrolsystem.h \
-		../guiAutoPilot/ControlSystems/controlsystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o heightcontrolsystem.o ../guiAutoPilot/ControlSystems/heightcontrolsystem.cpp
-
-headinganglemetersystem.o: ../guiAutoPilot/MeterSystems/headinganglemetersystem.cpp ../guiAutoPilot/MeterSystems/headinganglemetersystem.h \
-		../guiAutoPilot/MeterSystems/metersystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o headinganglemetersystem.o ../guiAutoPilot/MeterSystems/headinganglemetersystem.cpp
-
-heightmetersystem.o: ../guiAutoPilot/MeterSystems/heightmetersystem.cpp ../guiAutoPilot/MeterSystems/heightmetersystem.h \
-		../guiAutoPilot/MeterSystems/metersystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o heightmetersystem.o ../guiAutoPilot/MeterSystems/heightmetersystem.cpp
-
-metersystem.o: ../guiAutoPilot/MeterSystems/metersystem.cpp ../guiAutoPilot/MeterSystems/metersystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o metersystem.o ../guiAutoPilot/MeterSystems/metersystem.cpp
-
-planecontrolsystem.o: ../guiAutoPilot/planecontrolsystem.cpp ../guiAutoPilot/planecontrolsystem.h \
-		../guiAutoPilot/AutoPilotSystems/autopilotsystem.h \
-		../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.h \
-		../guiAutoPilot/AutoControlSystems/autocontrolsystem.h \
-		../guiAutoPilot/MeterSystems/heightmetersystem.h \
-		../guiAutoPilot/MeterSystems/metersystem.h \
-		../guiAutoPilot/ControlSystems/heightcontrolsystem.h \
-		../guiAutoPilot/ControlSystems/controlsystem.h \
-		../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.h \
-		../guiAutoPilot/MeterSystems/headinganglemetersystem.h \
-		../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o planecontrolsystem.o ../guiAutoPilot/planecontrolsystem.cpp
-
-autopilotgui.o: ../guiAutoPilot/autopilotgui.cpp ../guiAutoPilot/autopilotgui.h \
-		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/QtGui \
+moc_guielements.cpp: ../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/QtGui \
 		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessible.h \
 		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessiblebridge.h \
 		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessibleobject.h \
@@ -813,16 +716,444 @@ autopilotgui.o: ../guiAutoPilot/autopilotgui.cpp ../guiAutoPilot/autopilotgui.h 
 		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
 		../guiAutoPilot/tools.h \
 		../guiAutoPilot/guielements.h
+	/Users/AndrexPJ/Programming/Qt/5.2.0/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 $(INCPATH) ../guiAutoPilot/guielements.h -o moc_guielements.cpp
+
+moc_mainwindow.cpp: ../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		../../../../Qt/5.2.0/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		../guiAutoPilot/mainwindow.h
+	/Users/AndrexPJ/Programming/Qt/5.2.0/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 $(INCPATH) ../guiAutoPilot/mainwindow.h -o moc_mainwindow.cpp
+
+compiler_moc_source_make_all:
+compiler_moc_source_clean:
+compiler_uic_make_all: ui_mainwindow.h
+compiler_uic_clean:
+	-$(DEL_FILE) ui_mainwindow.h
+ui_mainwindow.h: ../guiAutoPilot/mainwindow.ui
+	/Users/AndrexPJ/Programming/Qt/5.2.0/clang_64/bin/uic ../guiAutoPilot/mainwindow.ui -o ui_mainwindow.h
+
+compiler_rez_source_make_all:
+compiler_rez_source_clean:
+compiler_yacc_decl_make_all:
+compiler_yacc_decl_clean:
+compiler_yacc_impl_make_all:
+compiler_yacc_impl_clean:
+compiler_lex_make_all:
+compiler_lex_clean:
+compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+
+####### Compile
+
+main.o: ../guiAutoPilot/main.cpp ../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QApplication \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qapplication.h \
+		../guiAutoPilot/autopilotgui.h \
+		../guiAutoPilot/guielements.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/QtGui \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessible.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessiblebridge.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessibleobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessibleplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qbitmap.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qicon.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qiconengine.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qiconengineplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimage.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimageiohandler.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimagereader.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimagewriter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qmovie.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpicture.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpictureformatplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmap.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmapcache.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qstandarditemmodel.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qclipboard.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qcursor.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qdrag.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qevent.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericpluginfactory.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qguiapplication.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qinputmethod.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qkeysequence.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qoffscreensurface.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglcontext.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpalette.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qscreen.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsessionmanager.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qstylehints.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsurface.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsurfaceformat.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtouchdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindow.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindowdefs.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericmatrix.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qmatrix4x4.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qquaternion.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector2d.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector3d.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector4d.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengl.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglbuffer.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengldebug.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglframebufferobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglfunctions.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglpaintdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglpixeltransferoptions.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglshaderprogram.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengltexture.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengltimerquery.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglversionfunctions.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglvertexarrayobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qbackingstore.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qbrush.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qcolor.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qmatrix.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpagedpaintdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpaintdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpaintengine.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpainter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpainterpath.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpdfwriter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpen.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpolygon.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qregion.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qrgb.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtransform.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qabstracttextdocumentlayout.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfont.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontdatabase.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontinfo.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontmetrics.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qglyphrun.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qrawfont.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qstatictext.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsyntaxhighlighter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextcursor.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocument.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocumentfragment.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocumentwriter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextformat.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextlayout.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextlist.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextoption.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtexttable.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qdesktopservices.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvalidator.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtguiversion.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		../guiAutoPilot/tools.h \
+		../guiAutoPilot/planecontrolsystem.h \
+		../guiAutoPilot/AutoPilotSystems/autopilotsystem.h \
+		../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.h \
+		../guiAutoPilot/AutoControlSystems/autocontrolsystem.h \
+		../guiAutoPilot/MeterSystems/heightmetersystem.h \
+		../guiAutoPilot/MeterSystems/metersystem.h \
+		../guiAutoPilot/ControlSystems/heightcontrolsystem.h \
+		../guiAutoPilot/ControlSystems/controlsystem.h \
+		../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.h \
+		../guiAutoPilot/MeterSystems/headinganglemetersystem.h \
+		../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../guiAutoPilot/main.cpp
+
+autocontrolsystem.o: ../guiAutoPilot/AutoControlSystems/autocontrolsystem.cpp ../guiAutoPilot/AutoControlSystems/autocontrolsystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o autocontrolsystem.o ../guiAutoPilot/AutoControlSystems/autocontrolsystem.cpp
+
+headingangleautocontrolsystem.o: ../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.cpp ../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.h \
+		../guiAutoPilot/AutoControlSystems/autocontrolsystem.h \
+		../guiAutoPilot/MeterSystems/headinganglemetersystem.h \
+		../guiAutoPilot/MeterSystems/metersystem.h \
+		../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h \
+		../guiAutoPilot/ControlSystems/controlsystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o headingangleautocontrolsystem.o ../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.cpp
+
+heightautocontrolsystem.o: ../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.cpp ../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.h \
+		../guiAutoPilot/AutoControlSystems/autocontrolsystem.h \
+		../guiAutoPilot/MeterSystems/heightmetersystem.h \
+		../guiAutoPilot/MeterSystems/metersystem.h \
+		../guiAutoPilot/ControlSystems/heightcontrolsystem.h \
+		../guiAutoPilot/ControlSystems/controlsystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o heightautocontrolsystem.o ../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.cpp
+
+autopilotsystem.o: ../guiAutoPilot/AutoPilotSystems/autopilotsystem.cpp ../guiAutoPilot/AutoPilotSystems/autopilotsystem.h \
+		../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.h \
+		../guiAutoPilot/AutoControlSystems/autocontrolsystem.h \
+		../guiAutoPilot/MeterSystems/heightmetersystem.h \
+		../guiAutoPilot/MeterSystems/metersystem.h \
+		../guiAutoPilot/ControlSystems/heightcontrolsystem.h \
+		../guiAutoPilot/ControlSystems/controlsystem.h \
+		../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.h \
+		../guiAutoPilot/MeterSystems/headinganglemetersystem.h \
+		../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o autopilotsystem.o ../guiAutoPilot/AutoPilotSystems/autopilotsystem.cpp
+
+controlsystem.o: ../guiAutoPilot/ControlSystems/controlsystem.cpp ../guiAutoPilot/ControlSystems/controlsystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controlsystem.o ../guiAutoPilot/ControlSystems/controlsystem.cpp
+
+headinganglecontrolsystem.o: ../guiAutoPilot/ControlSystems/headinganglecontrolsystem.cpp ../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h \
+		../guiAutoPilot/ControlSystems/controlsystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o headinganglecontrolsystem.o ../guiAutoPilot/ControlSystems/headinganglecontrolsystem.cpp
+
+heightcontrolsystem.o: ../guiAutoPilot/ControlSystems/heightcontrolsystem.cpp ../guiAutoPilot/ControlSystems/heightcontrolsystem.h \
+		../guiAutoPilot/ControlSystems/controlsystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o heightcontrolsystem.o ../guiAutoPilot/ControlSystems/heightcontrolsystem.cpp
+
+headinganglemetersystem.o: ../guiAutoPilot/MeterSystems/headinganglemetersystem.cpp ../guiAutoPilot/MeterSystems/headinganglemetersystem.h \
+		../guiAutoPilot/MeterSystems/metersystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o headinganglemetersystem.o ../guiAutoPilot/MeterSystems/headinganglemetersystem.cpp
+
+heightmetersystem.o: ../guiAutoPilot/MeterSystems/heightmetersystem.cpp ../guiAutoPilot/MeterSystems/heightmetersystem.h \
+		../guiAutoPilot/MeterSystems/metersystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o heightmetersystem.o ../guiAutoPilot/MeterSystems/heightmetersystem.cpp
+
+metersystem.o: ../guiAutoPilot/MeterSystems/metersystem.cpp ../guiAutoPilot/MeterSystems/metersystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o metersystem.o ../guiAutoPilot/MeterSystems/metersystem.cpp
+
+planecontrolsystem.o: ../guiAutoPilot/planecontrolsystem.cpp ../guiAutoPilot/planecontrolsystem.h \
+		../guiAutoPilot/AutoPilotSystems/autopilotsystem.h \
+		../guiAutoPilot/AutoControlSystems/heightautocontrolsystem.h \
+		../guiAutoPilot/AutoControlSystems/autocontrolsystem.h \
+		../guiAutoPilot/MeterSystems/heightmetersystem.h \
+		../guiAutoPilot/MeterSystems/metersystem.h \
+		../guiAutoPilot/ControlSystems/heightcontrolsystem.h \
+		../guiAutoPilot/ControlSystems/controlsystem.h \
+		../guiAutoPilot/AutoControlSystems/headingangleautocontrolsystem.h \
+		../guiAutoPilot/MeterSystems/headinganglemetersystem.h \
+		../guiAutoPilot/ControlSystems/headinganglecontrolsystem.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o planecontrolsystem.o ../guiAutoPilot/planecontrolsystem.cpp
+
+autopilotgui.o: ../guiAutoPilot/autopilotgui.cpp ../guiAutoPilot/autopilotgui.h \
+		../guiAutoPilot/guielements.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/QtGui \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessible.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessiblebridge.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessibleobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessibleplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qbitmap.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qicon.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qiconengine.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qiconengineplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimage.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimageiohandler.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimagereader.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimagewriter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qmovie.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpicture.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpictureformatplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmap.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmapcache.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qstandarditemmodel.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qclipboard.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qcursor.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qdrag.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qevent.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericpluginfactory.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qguiapplication.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qinputmethod.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qkeysequence.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qoffscreensurface.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglcontext.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpalette.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qscreen.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsessionmanager.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qstylehints.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsurface.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsurfaceformat.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtouchdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindow.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindowdefs.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericmatrix.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qmatrix4x4.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qquaternion.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector2d.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector3d.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector4d.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengl.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglbuffer.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengldebug.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglframebufferobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglfunctions.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglpaintdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglpixeltransferoptions.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglshaderprogram.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengltexture.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengltimerquery.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglversionfunctions.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglvertexarrayobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qbackingstore.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qbrush.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qcolor.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qmatrix.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpagedpaintdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpaintdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpaintengine.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpainter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpainterpath.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpdfwriter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpen.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpolygon.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qregion.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qrgb.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtransform.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qabstracttextdocumentlayout.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfont.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontdatabase.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontinfo.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontmetrics.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qglyphrun.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qrawfont.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qstatictext.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsyntaxhighlighter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextcursor.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocument.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocumentfragment.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocumentwriter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextformat.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextlayout.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextlist.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextoption.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtexttable.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qdesktopservices.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvalidator.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtguiversion.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		../guiAutoPilot/tools.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o autopilotgui.o ../guiAutoPilot/autopilotgui.cpp
 
 tools.o: ../guiAutoPilot/tools.cpp ../guiAutoPilot/tools.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tools.o ../guiAutoPilot/tools.cpp
 
-guielements.o: ../guiAutoPilot/guielements.cpp ../guiAutoPilot/guielements.h
+guielements.o: ../guiAutoPilot/guielements.cpp ../guiAutoPilot/guielements.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/QtGui \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessible.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessiblebridge.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessibleobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qaccessibleplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qbitmap.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qicon.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qiconengine.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qiconengineplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimage.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimageiohandler.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimagereader.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qimagewriter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qmovie.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpicture.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpictureformatplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmap.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmapcache.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qstandarditemmodel.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qclipboard.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qcursor.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qdrag.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qevent.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericplugin.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericpluginfactory.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qguiapplication.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qinputmethod.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qkeysequence.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qoffscreensurface.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglcontext.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpalette.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qscreen.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsessionmanager.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qstylehints.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsurface.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsurfaceformat.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtouchdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindow.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindowdefs.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qgenericmatrix.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qmatrix4x4.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qquaternion.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector2d.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector3d.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvector4d.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengl.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglbuffer.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengldebug.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglframebufferobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglfunctions.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglpaintdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglpixeltransferoptions.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglshaderprogram.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengltexture.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopengltimerquery.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglversionfunctions.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qopenglvertexarrayobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qbackingstore.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qbrush.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qcolor.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qmatrix.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpagedpaintdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpaintdevice.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpaintengine.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpainter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpainterpath.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpdfwriter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpen.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qpolygon.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qregion.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qrgb.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtransform.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qabstracttextdocumentlayout.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfont.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontdatabase.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontinfo.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qfontmetrics.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qglyphrun.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qrawfont.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qstatictext.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qsyntaxhighlighter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextcursor.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocument.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocumentfragment.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextdocumentwriter.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextformat.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextlayout.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextlist.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextobject.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextoption.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtexttable.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qdesktopservices.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qvalidator.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtGui.framework/Versions/5/Headers/qtguiversion.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QHBoxLayout \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qwidget.h \
+		../guiAutoPilot/tools.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o guielements.o ../guiAutoPilot/guielements.cpp
+
+mainwindow.o: ../guiAutoPilot/mainwindow.cpp ../guiAutoPilot/mainwindow.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
+		../../../../Qt/5.2.0/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
+		../../../../Qt/5.2.0/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		../../../../Qt/5.2.0/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		ui_mainwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../guiAutoPilot/mainwindow.cpp
+
+moc_autopilotgui.o: moc_autopilotgui.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_autopilotgui.o moc_autopilotgui.cpp
 
 moc_guielements.o: moc_guielements.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_guielements.o moc_guielements.cpp
+
+moc_mainwindow.o: moc_mainwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
 ####### Install
 

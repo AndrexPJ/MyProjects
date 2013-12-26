@@ -23,6 +23,8 @@ AutoPilotGUI::AutoPilotGUI(double *height, double *angle){
     this->layout->addLayout(button_layout,0,2);
 
     this->window.setLayout(this->layout);
+
+
 }
 
 void AutoPilotGUI::show(){
@@ -39,3 +41,9 @@ void AutoPilotGUI::set_height(double height){
     this->required_height = height;
     this->heightLevel->set_required_height(height);
 }
+
+void AutoPilotGUI::update(){
+    this->window.update();
+}
+
+

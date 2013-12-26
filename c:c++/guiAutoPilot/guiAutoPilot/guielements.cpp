@@ -40,7 +40,7 @@ void HeightLevelWidget::paintEvent(QPaintEvent *event){
     painter.setPen(Qt::red);
     painter.brushOrigin();
     y = (this->required_height * dh);
-    painter.drawRect(1,sz.height()-y+1,sz.width()-3,1);
+    painter.drawRect(1,sz.height()-y-3,sz.width()-3,1);
     sstr = (Tools::ToStrConverter<double>::convert((this->required_height)));
     str = QString::fromStdString(sstr);
     painter.drawText(sz.width()-50,sz.height()-y-5,str);
