@@ -22,6 +22,8 @@ public:
     PlaneControlSystem(AutoPilotSystem *main_autopilot, AutoPilotSystem *spare_autopilot,
                        double *controlled_height, double *controlled_heading_angle);
 
+    ~PlaneControlSystem();
+
     static void *control_function(void *controller);
     bool start_control(void);
     bool stop_control(void);

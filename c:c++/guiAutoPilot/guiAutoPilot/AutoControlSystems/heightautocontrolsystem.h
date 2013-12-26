@@ -19,6 +19,7 @@ private:
 public:
     HeightAutoControlSystem(HeightMeterSystem *meter_system, HeightControlSystem *control_system,
             double height_start_value = 0, int time_interval_microsec = 100000, double height_change_rate = 1.0);
+    ~HeightAutoControlSystem();
     bool set_height(double height);
     double get_height();
     bool start_control();

@@ -13,6 +13,10 @@ AutoPilotSystem::AutoPilotSystem(HeightAutoControlSystem *heightACS, HeadingAngl
     this->heigthCS_thread = &(this->heightACS->control_thread);
 }
 
+AutoPilotSystem::~AutoPilotSystem(){
+    this->headingAngleACS->~HeadingAngleAutoControlSystem();
+    this->heightACS->~HeightAutoControlSystem();
+}
 
 bool AutoPilotSystem::set_height(double height){
     return this->heightACS->set_height(height);

@@ -17,6 +17,7 @@ public:
     pthread_t control_thread;
 
     AutoControlSystem(double controlled_parameter_start_value = 0);
+    ~AutoControlSystem();
     static void *control_function(void *controller);
     bool start_control(void * control_function(void*), void *controller);
     bool stop_control(void);

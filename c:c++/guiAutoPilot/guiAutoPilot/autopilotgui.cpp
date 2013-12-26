@@ -1,7 +1,6 @@
 #include "autopilotgui.h"
 
 AutoPilotGUI::AutoPilotGUI(double *height, double *angle){
-    this->window.resize(800,300);
 
     this->layout = new QGridLayout;
     this->button_layout = new QGridLayout;
@@ -25,6 +24,10 @@ AutoPilotGUI::AutoPilotGUI(double *height, double *angle){
     this->window.setLayout(this->layout);
 
 
+}
+
+AutoPilotGUI::~AutoPilotGUI(){
+    this->window.close();
 }
 
 void AutoPilotGUI::show(){

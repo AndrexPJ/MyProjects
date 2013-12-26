@@ -5,6 +5,7 @@ class ControlSystem
 {
 public:
     ControlSystem();
+    ~ControlSystem();
     virtual void set_value(double value) = 0;
     virtual void change_value(double value) = 0;
 };

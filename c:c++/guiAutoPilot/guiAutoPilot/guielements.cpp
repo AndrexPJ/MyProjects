@@ -7,6 +7,7 @@ HeightLevelWidget::HeightLevelWidget(double *controlled_height, double max_heigh
     this->current_height = controlled_height;
     this->max_height = max_height;
     this->required_height = 0;
+
 }
 
 HeightLevelWidget::~HeightLevelWidget()
@@ -18,9 +19,20 @@ void HeightLevelWidget::set_required_height(double height){
     this->required_height = height;
 }
 
-void HeightLevelWidget::paintEvent(QPaintEvent *event){
+void HeightLevelWidget::set_height(int height){
+    this->required_height = (double)height;
+}
+
+void HeightLevelWidget::paintEvent(QPaintEvent *){
+
     QPainter painter(this);
     QSize sz = this->size();
+
+    painter.setPen(Qt::white);
+    painter.setBrush(Qt::white);
+    painter.drawRect(0,0,sz.width()-1,sz.height()-1);
+    painter.brushOrigin();
+
     painter.setPen(Qt::black);
     painter.drawRect(0,0,sz.width()-1,sz.height()-1);
 
@@ -63,27 +75,39 @@ void HeadingAngleWidget::set_required_angle(double angle){
     this->required_angle = angle;
 }
 
-void HeadingAngleWidget::paintEvent(QPaintEvent *event){
+void HeadingAngleWidget::set_angle(int angle){
+    this->required_angle = double(angle);
+}
+
+void HeadingAngleWidget::paintEvent(QPaintEvent *){
     QPainter painter(this);
     QSize sz = this->size();
     double c_x,c_y;
     c_x = double(sz.width())/2;
     c_y = double(sz.height())/2;
+
+    painter.setPen(Qt::white);
+    painter.setBrush(Qt::white);
+    painter.drawEllipse(0,0,sz.width()-1,sz.height()-1);
+    painter.brushOrigin();
+
     painter.setPen(Qt::black);
     painter.drawEllipse(0,0,sz.width()-1,sz.height()-1);
     painter.drawLine(c_x-10,c_y,c_x+10,c_y);
     painter.drawLine(c_x,c_y-10,c_x,c_y+10);
 
+    double d_angle = -M_PI/2;
 
     painter.setPen(Qt::green);
-    double angle = (-*(this->current_angle))*M_PI/180;
-    painter.drawLine(c_x,c_y,(c_x)*(cos(angle)+1),(c_y)*(sin(angle)+1));
+    painter.drawLine(c_x,c_y,(c_x)*(cos(d_angle)+1),(c_y)*(sin(d_angle)+1));
     std::string sstr = (Tools::ToStrConverter<double>::convert((*this->current_angle)));
     QString str = QString::fromStdString(sstr);
     painter.drawText(c_x + 20,c_y,str);
 
+    double angle;
+
     painter.setPen(Qt::red);
-    angle = (-(this->required_angle))*M_PI/180;
+    angle = (-(this->required_angle - *this->current_angle))*M_PI/180 +  d_angle;
     painter.drawLine(c_x,c_y,(c_x)*(cos(angle)+1),(c_y)*(sin(angle)+1));
     sstr = (Tools::ToStrConverter<double>::convert((this->required_angle)));
     str = QString::fromStdString(sstr);
@@ -95,6 +119,8 @@ void HeadingAngleWidget::paintEvent(QPaintEvent *event){
 StateButton::StateButton(QString name, QWidget *parent) : QWidget(parent){
     this->state = 0; //not active
     this->name = name;
+    this->setFixedHeight(200);
+    this->setFixedWidth(200);
 }
 
 StateButton::~StateButton(){
@@ -104,7 +130,7 @@ void StateButton::set_state(int state){
     this->state = state;
 }
 
-void StateButton::paintEvent(QPaintEvent *event){
+void StateButton::paintEvent(QPaintEvent *){
     QPainter painter(this);
     QSize sz = this->size();
     painter.setPen(Qt::black);

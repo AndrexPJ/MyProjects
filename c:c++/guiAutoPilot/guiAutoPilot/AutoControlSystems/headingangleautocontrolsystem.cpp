@@ -14,6 +14,9 @@ HeadingAngleAutoControlSystem::HeadingAngleAutoControlSystem(HeadingAngleMeterSy
 
 }
 
+HeadingAngleAutoControlSystem::~HeadingAngleAutoControlSystem() {
+    AutoControlSystem::~AutoControlSystem();
+}
 
 void * HeadingAngleAutoControlSystem::control_function(void *controller){
     HeadingAngleAutoControlSystem *angle_controller = (HeadingAngleAutoControlSystem *)controller;

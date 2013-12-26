@@ -19,6 +19,9 @@ public:
     void set_required_height(double height);
     ~HeightLevelWidget();
 
+public slots:
+    void set_height(int height);
+
 protected:
     virtual void paintEvent(QPaintEvent *event);
 
@@ -36,7 +39,8 @@ public:
      ~HeadingAngleWidget();
     void set_required_angle(double angle);
 
-
+public slots:
+    void set_angle(int angle);
 protected:
     virtual void paintEvent(QPaintEvent *event);
 

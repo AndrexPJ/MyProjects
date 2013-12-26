@@ -13,6 +13,9 @@ HeightAutoControlSystem::HeightAutoControlSystem(HeightMeterSystem *meter_system
     this->control_system = control_system;
 }
 
+HeightAutoControlSystem::~HeightAutoControlSystem(){
+    AutoControlSystem::~AutoControlSystem();
+}
 
 void * HeightAutoControlSystem::control_function(void *controller){
     HeightAutoControlSystem *height_controller = (HeightAutoControlSystem *)controller;

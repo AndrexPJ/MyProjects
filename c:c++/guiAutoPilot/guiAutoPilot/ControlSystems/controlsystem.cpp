@@ -3,3 +3,6 @@
 ControlSystem::ControlSystem()
 {
 }
+
+ControlSystem::~ControlSystem(){
+}

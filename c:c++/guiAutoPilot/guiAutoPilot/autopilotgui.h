@@ -20,6 +20,7 @@ public:
     StateButton *main_ap_b,*spare_ap_b;
 
     AutoPilotGUI(double *height,double *angle);
+    ~AutoPilotGUI();
     void set_height(double height);
     void set_angle(double angle);
     void update();

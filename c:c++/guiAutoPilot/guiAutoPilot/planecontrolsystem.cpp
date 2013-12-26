@@ -15,6 +15,12 @@ PlaneControlSystem::PlaneControlSystem(AutoPilotSystem *main_autopilot, AutoPilo
     this->main_autopilot_state = false;
 }
 
+PlaneControlSystem::~PlaneControlSystem(){
+        pthread_cancel(this->control_thread);
+        this->main_autopilot->~AutoPilotSystem();
+        this->spare_autopilot->~AutoPilotSystem();
+}
+
 
 void * PlaneControlSystem::control_function(void *controller){
     PlaneControlSystem *plane_controller = (PlaneControlSystem *)controller;
@@ -26,15 +32,16 @@ void * PlaneControlSystem::control_function(void *controller){
                 plane_controller->spare_autopilot->set_height(plane_controller->required_height);
                 plane_controller->spare_autopilot->set_heading_angle(plane_controller->required_heading_angle);
                 plane_controller->main_autopilot->stop_control();
-                sleep(1);
+                sleep(2);
                 plane_controller->spare_autopilot->start_control();
                 plane_controller->main_autopilot_state = false;
                 std::cout << "Started spare autopilot" << std::endl;
             }
         }
         else{
-            if((!plane_controller->main_autopilot->check_system()) && (!plane_controller->spare_autopilot->check_system()))
-                std::cerr << "All autopilots died...." << std::endl;
+            if((!plane_controller->spare_autopilot->check_system()))
+                {//std::cerr << "All autopilots died...." << std::endl;
+            }
         }
     }
 }
@@ -56,17 +63,17 @@ bool PlaneControlSystem::stop_control(){
 
 void PlaneControlSystem::set_height(double height){
     this->required_height = height;
-    if(this->main_autopilot_state)
+    //if(this->main_autopilot_state)
         this->main_autopilot->set_height(this->required_height);
-    else
+    //else
         this->spare_autopilot->set_height(this->required_height);
 }
 
 void PlaneControlSystem::set_heading_angle(double heading_angle){
     this->required_heading_angle = heading_angle;
-    if(this->main_autopilot_state)
+    //if(this->main_autopilot_state)
         this->main_autopilot->set_heading_angle(this->required_heading_angle);
-    else
+    //else
         this->main_autopilot->set_heading_angle(this->required_heading_angle);
 }
 
@@ -79,7 +86,9 @@ double PlaneControlSystem::get_heading_angle(){
 }
 
 bool PlaneControlSystem::get_main_autopilot_state(){
-    return this->main_autopilot->check_system();
+    if(this->main_autopilot_state)
+        return this->main_autopilot->check_system();
+    else return false;
 }
 
 bool PlaneControlSystem::get_spare_autopilot_state(){
@@ -88,6 +97,7 @@ bool PlaneControlSystem::get_spare_autopilot_state(){
 
 void PlaneControlSystem::kill_main_autopilot(){
     this->main_autopilot->stop_control();
+    this->main_autopilot_state = false;
 }
 
 

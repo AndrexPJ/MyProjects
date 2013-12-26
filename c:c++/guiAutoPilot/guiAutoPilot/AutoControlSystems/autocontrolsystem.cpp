@@ -4,6 +4,9 @@ AutoControlSystem::AutoControlSystem(double controlled_parameter_start_value){
     this->controlled_parameter = controlled_parameter_start_value;
 }
 
+AutoControlSystem::~AutoControlSystem(){
+    pthread_cancel(this->control_thread);
+}
 
 bool AutoControlSystem::start_control(void *control_function(void *),void *controller){
     pthread_create(&(this->control_thread),NULL,control_function,controller);

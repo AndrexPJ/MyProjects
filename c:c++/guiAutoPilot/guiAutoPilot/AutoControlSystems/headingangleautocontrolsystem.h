@@ -19,8 +19,10 @@ private:
 
 public:
     HeadingAngleAutoControlSystem();
+    ~HeadingAngleAutoControlSystem();
     HeadingAngleAutoControlSystem(HeadingAngleMeterSystem *meter_system, HeadingAngleControlSystem *control_system,
             double heading_angle_start_value = 0, int time_interval_microsec = 100000, double angle_change_rate = 1.0);
+
     bool set_angle(double angle);
     double get_angle();
     bool start_control();
