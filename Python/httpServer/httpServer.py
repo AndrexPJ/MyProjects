@@ -46,7 +46,7 @@ class httpServer:
 
 
 host = "0.0.0.0"
-port = int(os.environ.get("PORT", 5000))
+port = int(os.environ.get("PORT", 80))
 
 server = httpServer(host,2002,5)
 
